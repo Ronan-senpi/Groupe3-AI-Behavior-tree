@@ -31,11 +31,11 @@ public class Player : MonoBehaviour
 
         transform.Translate(transform.forward * moveSpeed * Time.deltaTime * smoothInputMagnitude, Space.World);*/
 
-        velocity = transform.forward * moveSpeed * smoothInputMagnitude;
+        velocity = transform.forward * (moveSpeed * smoothInputMagnitude);
     }
 
     void FixedUpdate() {
         rigidbody.MoveRotation(Quaternion.Euler(Vector3.up * angle));
-        rigidbody.MovePosition(rigidbody.position + velocity * Time.deltaTime);
+        rigidbody.MovePosition(rigidbody.position + transform.TransformDirection(velocity) * Time.fixedDeltaTime);
     }
 }
