@@ -26,7 +26,7 @@ public class AIUpdater : MonoBehaviour
     }
 
     private const float AI_UPDATE_FREQUENCY = 0.04f;
-    private bool updatingAI;
+    private bool updatingAI = true;
     private Node currentNode;
 
     private void Awake()
@@ -36,23 +36,28 @@ public class AIUpdater : MonoBehaviour
 
     private IEnumerator UpdateAI()
     {
+        Debug.Log("UpdateAI first call");
         var wait = new WaitForSeconds(AI_UPDATE_FREQUENCY);
         while (updatingAI)
         {
-            NodeState currentState = currentNode.Evaluate();
-            if (currentState == NodeState.NotExecuted)
+            if (currentNode != null)
             {
-                currentNode.OnStart();
-                currentNode.OnUpdate();
+                NodeState currentState = currentNode.Evaluate();
+                if (currentState == NodeState.NotExecuted)
+                {
+                    currentNode.OnStart();
+                    currentNode.OnUpdate();
+                }
+                else if (currentState == NodeState.Running)
+                {
+                    currentNode.OnUpdate();
+                }
+                else if (currentState == NodeState.Success || currentState == NodeState.Failed)
+                {
+                    currentNode.OnEnd();
+                }
             }
-            else if (currentState == NodeState.Running)
-            {
-                currentNode.OnUpdate();
-            }
-            else if (currentState == NodeState.Success || currentState == NodeState.Failed)
-            {
-                currentNode.OnEnd();
-            }
+            
 
             yield return wait;
         }

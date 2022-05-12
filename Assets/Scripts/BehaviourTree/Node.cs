@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 public enum NodeState
 {
@@ -13,8 +14,8 @@ namespace BehaviourTree
 {
     public abstract class Node
     {
-        protected NodeState state;
-        protected List<Node> children = new List<Node>();
+        protected NodeState state = NodeState.NotExecuted;
+        protected List<Node> children;
 
         public Node(List<Node> childrenNodes)
         {
@@ -30,6 +31,7 @@ namespace BehaviourTree
 
         public virtual NodeState Evaluate()
         {
+            Debug.Log("Evaluate");
             return state;
         }
 

@@ -16,8 +16,15 @@ namespace BehaviourTree
 
         public override void OnStart(){}
 
+        public override NodeState Evaluate()
+        {
+            Debug.Log("Evaluate de Log");
+            return base.Evaluate();
+        }
+
         public override void OnUpdate()
         {
+            Debug.Log("OnUpdate LOG");
             Debug.Log(content);
             state = NodeState.Success;
         }

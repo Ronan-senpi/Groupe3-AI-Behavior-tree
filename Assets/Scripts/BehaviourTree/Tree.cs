@@ -17,7 +17,7 @@ namespace BehaviourTree
         // Update is called once per frame
         void Update()
         {
-            root.OnUpdate(); 
+            root.Evaluate(); 
         }
         
         protected abstract Node SetupTree();

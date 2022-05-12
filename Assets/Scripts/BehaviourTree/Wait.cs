@@ -13,6 +13,7 @@ namespace BehaviourTree
         public Wait(float waiting) : base(new List<Node>())
         {
             waitTimer = waiting;
+            OnStart();
         }
 
 
@@ -21,8 +22,14 @@ namespace BehaviourTree
             currentTimer = 0;
         }
 
+        public override NodeState Evaluate()
+        {
+            Debug.Log("Evaluate de Wait");
+            return base.Evaluate();
+        }
         public override void OnUpdate()
         {
+            Debug.Log("OnUpdate du WAIT");
             currentTimer += Time.deltaTime;
             if (currentTimer > waitTimer)
             {
@@ -35,7 +42,7 @@ namespace BehaviourTree
 
         public override void OnEnd()
         {
-            throw new System.NotImplementedException();
+            currentTimer = 0;
         }
     }
 }

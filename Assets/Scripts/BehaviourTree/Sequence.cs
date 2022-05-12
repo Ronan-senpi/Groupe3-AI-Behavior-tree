@@ -13,6 +13,7 @@ namespace BehaviourTree
 
         public override NodeState Evaluate()
         {
+            Debug.Log("Evaluate de sequence");
             foreach (Node node in children)
             {
                 NodeState childState = node.Evaluate();
@@ -30,6 +31,7 @@ namespace BehaviourTree
                 }
             }
 
+            Debug.Log("SEQUENCE SUCCESS");
             state = NodeState.Success;
             return state;
         }
