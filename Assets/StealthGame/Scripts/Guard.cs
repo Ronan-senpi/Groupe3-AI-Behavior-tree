@@ -16,15 +16,18 @@ public class Guard : MonoBehaviour
         }
     }
 
-    IEnumerator FollowPath(Vector3[] waypoints){
+    /*IEnumerator FollowPath(Vector3[] waypoints){
         transform.position = waypoints[0];
-        
+
         int targetWaypointIndex = 1;
         Vector3 targetWaypoint = waypoints[targetWaypointIndex];
 
+        while(true){
+
+        }
 
         return 0;
-    }
+    }*/
 
     void OnDrawGizmos() {
         Vector3 startPosition = pathHolder.GetChild(0).position;
