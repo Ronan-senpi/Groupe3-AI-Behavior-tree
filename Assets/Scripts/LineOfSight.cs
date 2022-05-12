@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class LineOfSight : MonoBehaviour
 {
-    [SerializeField] private float viewRadius;
+    [SerializeField] protected float viewRadius;
     public float ViewRadius => viewRadius;
-    [SerializeField] [Range(0f,360f)] private float viewAngle;
+    [SerializeField] [Range(0f,360f)] protected float viewAngle;
     public float ViewAngle => viewAngle;
 
 
 
-    public Vector3 DirFromAngle(float angleInDegree, bool angleIsGlobal)
+    public virtual Vector3 DirFromAngle(float angleInDegree, bool angleIsGlobal)
     {
         if (!angleIsGlobal)
             angleInDegree += transform.eulerAngles.y;
