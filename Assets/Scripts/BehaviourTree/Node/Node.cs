@@ -10,15 +10,17 @@ public enum NodeState
     Failed
 }
 
-namespace BehaviourTree
+namespace BehaviourTree.Nodes
 {
     public abstract class Node
     {
         protected NodeState state = NodeState.NotExecuted;
         protected List<Node> children;
+        public string nodeName;
 
-        public Node(List<Node> childrenNodes)
+        public Node(string name, List<Node> childrenNodes)
         {
+            nodeName = name; 
             children = childrenNodes;
         }
 
@@ -27,14 +29,18 @@ namespace BehaviourTree
             state = NodeState.Running;
         }
 
-        public virtual void OnUpdate(){}
+        public virtual void OnUpdate(float elapsedTime){}
 
         public virtual NodeState Evaluate()
         {
-            Debug.Log("Evaluate");
             return state;
         }
 
         public abstract void OnEnd();
+
+        public virtual void Reset()
+        {
+            state = NodeState.NotExecuted;
+        }
     }
 }

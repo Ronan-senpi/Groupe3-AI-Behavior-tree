@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using BehaviourTree;
+using BehaviourTree.Nodes;
 using UnityEngine;
 
 public class AIUpdater : MonoBehaviour
@@ -25,7 +23,7 @@ public class AIUpdater : MonoBehaviour
         }
     }
 
-    private const float AI_UPDATE_FREQUENCY = 0.04f;
+    public const float AI_UPDATE_FREQUENCY = 0.05f;
     private bool updatingAI = true;
     private Node currentNode;
 
@@ -43,14 +41,15 @@ public class AIUpdater : MonoBehaviour
             if (currentNode != null)
             {
                 NodeState currentState = currentNode.Evaluate();
+                //Debug.Log(currentNode.nodeName + " " + currentState);
                 if (currentState == NodeState.NotExecuted)
                 {
                     currentNode.OnStart();
-                    currentNode.OnUpdate();
+                    currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
                 }
                 else if (currentState == NodeState.Running)
                 {
-                    currentNode.OnUpdate();
+                    currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
                 }
                 else if (currentState == NodeState.Success || currentState == NodeState.Failed)
                 {

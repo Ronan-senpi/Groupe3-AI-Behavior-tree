@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BehaviourTree
+namespace BehaviourTree.Nodes
 {
     
     /// <summary>
@@ -9,13 +9,13 @@ namespace BehaviourTree
     public class Repeat : Node
     {
         public bool isRepeating = true;
-        public Repeat(Node child) : base(new List<Node>{child})
+        public Repeat(Node child) : base("Repeat", new List<Node>{child})
         {
         }
 
         public override void OnStart(){}
 
-        public override void OnUpdate()
+        public override void OnUpdate(float elapsedTime)
         {
             // if (isRepeating)
             // {

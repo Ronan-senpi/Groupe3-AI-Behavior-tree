@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTree.Nodes
 {
     public abstract class Condition : Node
     {
-        protected Condition(List<Node> childrenNodes) : base(childrenNodes)
+        protected Condition(string name) : base(name, new List<Node>())
         {
         }
     }
