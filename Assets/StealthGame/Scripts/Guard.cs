@@ -15,6 +15,7 @@ public class Guard : MonoBehaviour
 
     float viewAngle;
     float playerVisibleTimer;
+    bool canSee;
 
     public Transform pathHolder;
     Transform player;
@@ -44,6 +45,10 @@ public class Guard : MonoBehaviour
         }
         playerVisibleTimer = Mathf.Clamp(playerVisibleTimer, 0, timeToSpotPlayer);
         spotlight.color = Color.Lerp(originalSpotLightColor, Color.red, playerVisibleTimer / timeToSpotPlayer);
+
+        if(playerVisibleTimer >= timeToSpotPlayer){
+            print("SPOTTED");
+        }
     }
 
     bool CanSeePlayer(){
