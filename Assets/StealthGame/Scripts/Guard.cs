@@ -7,11 +7,14 @@ public class Guard : MonoBehaviour
     [SerializeField] private float speed = 5;
     [SerializeField] private float waitTime = .1f;
     [SerializeField] private float turnSpeed = 120;
+    [SerializeField] private float timeToSpotPlayer = .5f;
 
     [SerializeField] private Light spotlight;
     [SerializeField] private float viewDistance;
     [SerializeField] private LayerMask viewMask;
+
     float viewAngle;
+    float playerVisibleTimer;
 
     public Transform pathHolder;
     Transform player;
@@ -21,6 +24,7 @@ public class Guard : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         viewAngle = spotlight.spotAngle;
         originalSpotLightColor = spotlight.color;
+
         Vector3[] waypoints = new Vector3[pathHolder.childCount];
         for(int i = 0 ; i < waypoints.Length; i++){
             waypoints[i] = pathHolder.GetChild(i).position;
@@ -31,11 +35,15 @@ public class Guard : MonoBehaviour
 
     void Update(){
         if(CanSeePlayer()){
-            spotlight.color = Color.red;
+            //spotlight.color = Color.red;
+            playerVisibleTimer += Time.deltaTime;
         }
         else{
-            spotlight.color = originalSpotLightColor;
+            //spotlight.color = originalSpotLightColor;
+            playerVisibleTimer -= Time.deltaTime;
         }
+        playerVisibleTimer = Mathf.Clamp(playerVisibleTimer, 0, timeToSpotPlayer);
+        spotlight.color = Color.Lerp(originalSpotLightColor, Color.red, playerVisibleTimer / timeToSpotPlayer);
     }
 
     bool CanSeePlayer(){
