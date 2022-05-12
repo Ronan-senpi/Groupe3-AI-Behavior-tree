@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace BehaviourTree
+namespace BehaviourTree.Nodes
 {
     public class Selector : Node
     {
-        public Selector(List<Node> childrenNodes) : base(childrenNodes)
+        public Selector(List<Node> childrenNodes) : base("Selector", childrenNodes)
         {
         }
 
@@ -21,7 +21,14 @@ namespace BehaviourTree
             foreach (Node node in children)
             {
                 NodeState childState = node.Evaluate();
-                if (state != NodeState.Failed)
+                if (childState == NodeState.NotExecuted)
+                {
+                    AIUpdater.Instance.SetCurrentNode(node);
+                    state = NodeState.Running;
+                    return state;
+                }
+
+                if (childState != NodeState.Failed)
                 {
                     state = childState;
                     return state;
@@ -32,6 +39,14 @@ namespace BehaviourTree
             return state;
         }
 
+        public override void Reset()
+        {
+            foreach (Node node in children)
+            {
+                node.Reset();
+            }
+        }
+        
         public override void OnEnd()
         {
         }

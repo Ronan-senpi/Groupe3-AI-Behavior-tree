@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTree.Nodes
 {
     /// <summary>
     /// Logs with Debug.log when OnUpdate is called
@@ -9,14 +9,14 @@ namespace BehaviourTree
     public class Log : Action
     {
         public string content;
-        public Log(string logContent) : base(new List<Node>())
+        public Log(string logContent) : base("Log")
         {
             content = logContent;
         }
 
         public override void OnStart(){}
 
-        public override void OnUpdate()
+        public override void OnUpdate(float elapsedTime)
         {
             Debug.Log(content);
             state = NodeState.Success;

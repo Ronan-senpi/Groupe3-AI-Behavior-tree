@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTree.Nodes
 {
     public class Invert : Node
     {
-        public Invert(Node child) : base(new List<Node>() { child })
+        public Invert(Node child) : base("Invert", new List<Node>() { child })
         {
         }
 
@@ -15,7 +15,7 @@ namespace BehaviourTree
             throw new System.NotImplementedException();
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float elapsedTime)
         {
             NodeState revertState = children[0].Evaluate();
             if (revertState == NodeState.Failed)
