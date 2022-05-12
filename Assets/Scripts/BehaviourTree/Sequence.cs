@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BehaviourTree
@@ -10,16 +11,18 @@ namespace BehaviourTree
         {
         }
 
-        public override void OnStart()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override NodeState Evaluate()
         {
             foreach (Node node in children)
             {
                 NodeState childState = node.Evaluate();
+                if (childState == NodeState.NotExecuted)
+                {
+                    AIUpdater.Instance.SetCurrentNode(node);
+                    state = NodeState.Running;
+                    return state;
+                }
+
                 if (childState != NodeState.Success)
                 {
                     state = childState;

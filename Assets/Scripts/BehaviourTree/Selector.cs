@@ -21,7 +21,14 @@ namespace BehaviourTree
             foreach (Node node in children)
             {
                 NodeState childState = node.Evaluate();
-                if (state != NodeState.Failed)
+                if (childState == NodeState.NotExecuted)
+                {
+                    AIUpdater.Instance.SetCurrentNode(node);
+                    state = NodeState.Running;
+                    return state;
+                }
+
+                if (childState != NodeState.Failed)
                 {
                     state = childState;
                     return state;
