@@ -9,6 +9,7 @@ public class LineOfSightEditor : Editor
 {
     protected virtual void OnSceneGUI()
     {
+        
         LineOfSight los = (LineOfSight)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(
