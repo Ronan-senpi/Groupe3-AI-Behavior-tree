@@ -39,6 +39,14 @@ namespace BehaviourTree.Nodes
             return state;
         }
 
+        public override void Reset()
+        {
+            foreach (Node node in children)
+            {
+                node.Reset();
+            }
+        }
+        
         public override void OnEnd()
         {
         }

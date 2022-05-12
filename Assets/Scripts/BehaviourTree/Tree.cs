@@ -9,11 +9,12 @@ namespace BehaviourTree
         private const float TREE_UPDATE_FREQUENCY = 0.2f;
         private Node root;
         private bool updatingTree = true;
-        
+
         // Start is called before the first frame update
         void Awake()
         {
             root = SetupTree();
+            AIUpdater.Instance.SetCurrentNode(root);
             StartCoroutine(UpdateTree());
         }
 
@@ -28,9 +29,11 @@ namespace BehaviourTree
                     root.Reset();
                     AIUpdater.Instance.SetCurrentNode(root);
                 }
+
                 yield return wait;
             }
         }
+
         protected abstract Node SetupTree();
     }
 }
