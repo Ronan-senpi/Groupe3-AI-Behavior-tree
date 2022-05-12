@@ -39,16 +39,21 @@ public class Guard : MonoBehaviour
     }
 
     bool CanSeePlayer(){
-        if(Vector3.Distance(transform.position, player.position)<viewDistance){
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
-            float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
-            if(angleBetweenGuardAndPlayer < viewAngle / 2f){
-                if(Physics.Linecast(transform.position, player.position, viewMask)){
-                    return true;
-                }
-            }
+        if(Vector3.Distance(transform.position, player.position) >= viewDistance){
+            return false;
         }
-        return false;
+        
+        Vector3 dirToPlayer = (player.position - transform.position).normalized;
+        float angleBetweenGuardAndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
+        if(angleBetweenGuardAndPlayer >= viewAngle / 2f){
+            return false;
+        }
+        
+        if(Physics.Linecast(transform.position, player.position, viewMask)){
+            return false;
+        }
+        
+        return true;
     }
 
     IEnumerator FollowPath(Vector3[] waypoints){
