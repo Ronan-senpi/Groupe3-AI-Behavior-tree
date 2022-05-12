@@ -15,15 +15,15 @@ namespace BehaviourTree
 
         public override void OnStart(){}
 
-        public override NodeState OnUpdate()
+        public override void OnUpdate()
         {
-            if (isRepeating)
-            {
-                NodeState childval = children[0].OnUpdate();
-                if (childval == NodeState.Failed) return NodeState.Failed;
-                else return NodeState.Running;
-            }
-            return NodeState.Success;
+            // if (isRepeating)
+            // {
+            //     NodeState childval = children[0].Evaluate();
+            //     if (childval == NodeState.Failed) return NodeState.Failed;
+            //     else return NodeState.Running;
+            // }
+            // return NodeState.Success;
             
         }
 

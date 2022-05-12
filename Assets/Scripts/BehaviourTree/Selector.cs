@@ -15,11 +15,12 @@ namespace BehaviourTree
         {
         }
 
-        public override NodeState OnUpdate()
+
+        public override NodeState Evaluate()
         {
             foreach (Node node in children)
             {
-                NodeState childState = node.OnUpdate();
+                NodeState childState = node.Evaluate();
                 if (state != NodeState.Failed)
                 {
                     state = childState;
@@ -35,4 +36,4 @@ namespace BehaviourTree
         {
         }
     }
-}   
+}

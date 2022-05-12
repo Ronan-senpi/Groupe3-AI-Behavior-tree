@@ -17,11 +17,10 @@ namespace BehaviourTree
         {
         }
 
-        public override NodeState OnUpdate()
+        public override void OnUpdate()
         {
             int randPos = Random.Range(0, children.Count);
             Node node = children[randPos];
-            return node.OnUpdate();
         }
 
         public override void OnEnd()

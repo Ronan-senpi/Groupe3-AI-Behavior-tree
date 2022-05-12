@@ -2,7 +2,7 @@
 
 namespace BehaviourTree
 {
-    public class ForceFailure: Node
+    public class ForceFailure : Node
 
     {
         /// <summary>
@@ -10,22 +10,19 @@ namespace BehaviourTree
         /// </summary>
         public ForceFailure(List<Node> childrenNodes) : base(childrenNodes)
         {
-            
         }
 
         public override void OnStart()
         {
-            
         }
 
-        public override NodeState OnUpdate()
+        public override NodeState Evaluate()
         {
             return NodeState.Failed;
         }
 
         public override void OnEnd()
         {
-            
         }
     }
 }

@@ -3,6 +3,7 @@ using UnityEditor;
 
 public enum NodeState
 {
+    NotExectued,
     Running,
     Success,
     Failed
@@ -22,7 +23,12 @@ namespace BehaviourTree
 
         public abstract void OnStart();
 
-        public abstract NodeState OnUpdate();
+        public virtual void OnUpdate(){}
+
+        public virtual NodeState Evaluate()
+        {
+            return state;
+        }
 
         public abstract void OnEnd();
     }

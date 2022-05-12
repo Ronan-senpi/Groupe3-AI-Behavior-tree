@@ -6,7 +6,7 @@ namespace BehaviourTree
     /// <summary>
     /// Logs with Debug.log when OnUpdate is called
     /// </summary>
-    public class Log : Node
+    public class Log : Action
     {
         public string content;
         public Log(string logContent) : base(new List<Node>())
@@ -16,12 +16,12 @@ namespace BehaviourTree
 
         public override void OnStart(){}
 
-        public override NodeState OnUpdate()
+        public override void OnUpdate()
         {
             Debug.Log(content);
-            return NodeState.Success;
+            state = NodeState.Success;
         }
-
+        
         public override void OnEnd(){}
     }
 }

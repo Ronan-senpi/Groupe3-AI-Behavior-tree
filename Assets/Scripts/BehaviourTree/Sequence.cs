@@ -15,11 +15,11 @@ namespace BehaviourTree
             throw new System.NotImplementedException();
         }
 
-        public override NodeState OnUpdate()
+        public override NodeState Evaluate()
         {
             foreach (Node node in children)
             {
-                NodeState childState = node.OnUpdate();
+                NodeState childState = node.Evaluate();
                 if (childState != NodeState.Success)
                 {
                     state = childState;

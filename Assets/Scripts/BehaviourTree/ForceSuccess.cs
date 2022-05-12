@@ -4,7 +4,6 @@ namespace BehaviourTree
 {
     public class ForceSuccess : Node
     {
-        
         /// <summary>
         /// Returns always Success when OnUpdate is called
         /// </summary>
@@ -14,17 +13,15 @@ namespace BehaviourTree
 
         public override void OnStart()
         {
-            
         }
 
-        public override NodeState OnUpdate()
+        public override NodeState Evaluate()
         {
             return NodeState.Success;
         }
 
         public override void OnEnd()
         {
-            
         }
     }
 }

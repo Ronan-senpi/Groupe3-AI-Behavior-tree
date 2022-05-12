@@ -15,24 +15,22 @@ namespace BehaviourTree
             throw new System.NotImplementedException();
         }
 
-        public override NodeState OnUpdate()
+        public override void OnUpdate()
         {
-            NodeState revertState = children[0].OnUpdate();
+            NodeState revertState = children[0].Evaluate();
             if (revertState == NodeState.Failed)
             {
                 state = NodeState.Success;
-                return state;
             }
 
             if (revertState == NodeState.Success)
             {
                 state = NodeState.Failed;
-                return state;
             }
 
             state = NodeState.Running;
-            return state;
         }
+
 
         public override void OnEnd()
         {

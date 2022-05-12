@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BehaviourTree
 {
-    public class Wait : Node
+    public class Wait : Action
     {
         private float currentTimer;
         private float waitTimer;
@@ -14,24 +14,24 @@ namespace BehaviourTree
         {
             waitTimer = waiting;
         }
-        
+
 
         public override void OnStart()
         {
             currentTimer = 0;
         }
 
-        public override NodeState OnUpdate()
+        public override void OnUpdate()
         {
             currentTimer += Time.deltaTime;
             if (currentTimer > waitTimer)
             {
                 state = NodeState.Success;
-                return state;
             }
+
             state = NodeState.Running;
-            return state;
         }
+
 
         public override void OnEnd()
         {
