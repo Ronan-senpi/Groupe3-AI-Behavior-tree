@@ -84,11 +84,16 @@ public class BossController : LineOfSight
 
     #region PowerUp
 
+    
     [Header("PowerUp")] [SerializeField] [Range(1, 2)]
     private float powerUpRate = 1.33f;
-
+    [SerializeField] [Range(0, 1)]
+    private float powerUpThreshold =0.33f;
+    [SerializeField] GameObject effect;
+    private bool canPowerUp = true;
     #endregion PowerUp
 
+    private HealthController hc;
     private float powerRate = 1f;
 
     private void Start()
@@ -105,17 +110,28 @@ public class BossController : LineOfSight
         //sword hitbox setup
         hitboxSword.Damage = SwordDamages;
         hitboxSword.TargetMask = toHitLayer;
+
+        hc = GetComponent<HealthController>();
     }
 
     private void Update()
     {
-        
+        PowerUp();
     }
     
     //Fonction pour le BT
 
     void PowerUp()
     {
+        if (hc.CurrentHealthPoints <= hc.HealthPoints * powerUpThreshold)
+        {
+            hc.CanTakeDamage = false;
+            powerRate = powerUpRate;
+            animator.SetTrigger(AnimationNames.Power);
+            effect.SetActive(true);
+            //Remetre le CanTakeDamage = true apres l'animation
+            hc.CanTakeDamage = true;
+        }
     }
 
     void ReachPlayer()
