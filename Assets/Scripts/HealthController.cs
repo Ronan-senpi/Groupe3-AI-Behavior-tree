@@ -9,8 +9,9 @@ public class HealthController : MonoBehaviour
     [SerializeField] [Range(0, 1000)] protected float healthPoints = 500f;
     public float HealthPoints => healthPoints;
     [SerializeField] [Range(0, 1000)] protected float currentHealthPoints;
+    public float CurrentHealthPoints => currentHealthPoints;
     [SerializeField] [Range(0, 3)] protected float recoveryTime = 1.5f;
-    protected bool canTakeDamage = true;
+    public bool CanTakeDamage { get; set; } = true;
     public Rigidbody Rb { get; protected set; }
 
     // Start is called before the first frame update
@@ -33,7 +34,7 @@ public class HealthController : MonoBehaviour
 
     public virtual void Impact(float damages)
     {
-        canTakeDamage = false;
+        CanTakeDamage = false;
         animator.SetTrigger(AnimationNames.Impact);
         currentHealthPoints -= damages;
         StartCoroutine(ResetDamageStatus());
@@ -47,6 +48,6 @@ public class HealthController : MonoBehaviour
     IEnumerator ResetDamageStatus()
     {
         yield return new WaitForSeconds(recoveryTime);
-        canTakeDamage = true;
+        CanTakeDamage = true;
     }
 }
