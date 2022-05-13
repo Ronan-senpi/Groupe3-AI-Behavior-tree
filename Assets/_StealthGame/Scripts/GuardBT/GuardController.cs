@@ -18,8 +18,8 @@ public class GuardController : MonoBehaviour
 
     int _targetWaypointIndex = 1;
     bool _cooldown = false;
+
     [SerializeField] private GameObject _canvas;
-    bool _disabled = false;
     
     void Start()
     {
@@ -61,9 +61,9 @@ public class GuardController : MonoBehaviour
             return false;
         }
         
-        /*if(Physics.Linecast(transform.position, _playerTransform.position, _viewMask)){
+        if(Physics.Linecast(transform.position, _playerTransform.position, _viewMask)){
             return false;
-        }*/
+        }
         
         return true;
     }
@@ -71,12 +71,12 @@ public class GuardController : MonoBehaviour
     public void StartCooldown(){
         if(_cooldown)
             return;
+        _cooldown = true;
+        _spotlight.range = 1;
         StartCoroutine(WaitForSec(3f));
     }
 
     IEnumerator WaitForSec(float seconds){
-        _cooldown = true;
-        _spotlight.range = 1;
         yield return new WaitForSeconds(seconds);
         _cooldown = false;
         _spotlight.range = _originalSpotLightRange;

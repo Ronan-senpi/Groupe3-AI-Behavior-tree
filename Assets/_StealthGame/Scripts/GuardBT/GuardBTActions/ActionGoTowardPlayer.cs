@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ActionGoTowardPlayer : Action
 {
-    [SerializeField] private int _maxRange = 10;
     private GameObject _guardGameObject;
     private float _guardMoveSpeed;
     [SerializeField] private const float _waitTimeSeconds = 4f;
@@ -20,7 +19,6 @@ public class ActionGoTowardPlayer : Action
     }
     public override void OnUpdate(float elapsedTime)
     {
-        //_guardGameObject.GetComponent<GuardController>().ChasePlayer();
         _guardGameObject.transform.position = Vector3.MoveTowards(_guardGameObject.transform.position, _guardGameObject.GetComponent<GuardController>().getplayerTransform().position, _guardMoveSpeed * elapsedTime);
         _guardGameObject.transform.LookAt(_guardGameObject.GetComponent<GuardController>().getplayerTransform().position);
         _waitCounter += elapsedTime;
@@ -29,17 +27,6 @@ public class ActionGoTowardPlayer : Action
             _guardGameObject.GetComponent<GuardController>().StartCooldown();
             state = NodeState.Success;
         }
-
-        //if(Vector3.Distance(_guardGameObject.transform.position, _guardGameObject.GetComponent<GuardController>().getplayerTransform().position) < _maxRange)
-            
     }
 
-    public override void Reset()
-    {
-        base.Reset();
-    }
-
-    public override void OnEnd()
-    {
-    }
 }

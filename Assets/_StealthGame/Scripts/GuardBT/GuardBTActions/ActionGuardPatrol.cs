@@ -39,7 +39,7 @@ public class ActionGuardPatrol : Action
     }
     public override void OnUpdate(float elapsedTime)
     {
-        if(_guardGameObject.GetComponent<GuardController>().isPlayerSpotted())
+        if(_guardGameObject.GetComponent<GuardController>().isPlayerSpotted() || _guardGameObject.GetComponent<GuardController>().isOnCooldown())
             state = NodeState.Success;
             
         _targetWaypointIndex = _guardGameObject.GetComponent<GuardController>().getTargetWaypointIndex();
@@ -48,8 +48,7 @@ public class ActionGuardPatrol : Action
         Vector3 dirToLookTarget = (targetWaypoint - _guardGameObject.transform.position).normalized;
         float targetAngle = 90-Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
         float differenceAngle = Mathf.Abs(Mathf.DeltaAngle(_guardGameObject.transform.eulerAngles.y, targetAngle));
-        // float differenceAngle = Vector3.Angle(_pathHolder.GetChild(_targetWaypointIndex).transform.forward, _guardGameObject.transform.position - targetWaypoint);
-
+       
         if (_waiting)
         {
             _waitCounter += elapsedTime;
@@ -74,19 +73,8 @@ public class ActionGuardPatrol : Action
         }
 
         _guardGameObject.GetComponent<GuardController>().setTargetWaypointIndex((_targetWaypointIndex+1) % _waypoints.Length);
-        _waiting = true;
-        _waitCounter = 0f;
         
         state = NodeState.Success;
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-    }
-
-    public override void OnEnd()
-    {
     }
 
 }

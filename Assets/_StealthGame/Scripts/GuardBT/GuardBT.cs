@@ -35,8 +35,5 @@ public class GuardBT : Tree
             previousPosition = waypoint.position;
         }
         Gizmos.DrawLine(previousPosition, startPosition);
-
-        // Gizmos.color = Color.red;
-        // Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
     }
 }
