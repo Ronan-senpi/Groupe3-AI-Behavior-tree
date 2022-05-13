@@ -44,7 +44,7 @@ public class HitboxController : MonoBehaviour
             }
             else
             {
-                Debug.LogError("HealthController non trouvé");
+                Debug.LogError("HealthController non trouvé : " + other.transform.name);
             }
         }
     }

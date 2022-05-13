@@ -51,10 +51,10 @@ public class AIUpdater : MonoBehaviour
     {
         var wait = new WaitForSeconds(AI_UPDATE_FREQUENCY);
         Node currentNode;
-        
+
         while (updatingAI)
         {
-            bufferAINodes = new Dictionary<string, Node>(AINodes);//createBuffer(AINodes);
+            bufferAINodes = new Dictionary<string, Node>(AINodes); //createBuffer(AINodes);
             Debug.Log("bufferAINodes.Count " + bufferAINodes.Count + " AINodes.Count " + AINodes.Count);
             foreach (var currentAI in bufferAINodes)
             {
@@ -62,14 +62,10 @@ public class AIUpdater : MonoBehaviour
 
                 if (currentNode == null)
                 {
-                    
-                    Debug.Log("currentNode is null");
                     continue;
-                    
                 }
-                
+
                 NodeState currentState = currentNode.Evaluate();
-                Debug.Log("CURRENT : " + currentNode.GetName() + " state : " + currentState);
                 if (currentState == NodeState.NotExecuted)
                 {
                     Debug.Log("NotExecuted");
@@ -98,8 +94,8 @@ public class AIUpdater : MonoBehaviour
             yield return wait;
         }
     }
-    
-    private Dictionary<string,Node> createBuffer(Dictionary<string, Node> aiNodes)
+
+    private Dictionary<string, Node> createBuffer(Dictionary<string, Node> aiNodes)
     {
         Dictionary<string, Node> buffer = new Dictionary<string, Node>();
         for (int i = 0; i < aiNodes.Count; i++)
