@@ -14,7 +14,6 @@ public class IsAlreadyPowerUp : Condition
 
     public override void OnUpdate(float elapsedTime)
     {
-        Debug.Log("PowerUpstate : " + boss.IsPowerUp);
         if (boss.IsPowerUp)
         {
             state = NodeState.Failed;

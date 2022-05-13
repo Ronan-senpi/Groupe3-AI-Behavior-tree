@@ -16,7 +16,6 @@ public class PowerUp : Action
     public override void OnStart()
     {
         base.OnStart();
-        Debug.Log("Call PuwerUPer");
         boss.Animator.SetTrigger(AnimationNames.Power);
         boss.Effect.SetActive(true);
         animationDuration = boss.Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
