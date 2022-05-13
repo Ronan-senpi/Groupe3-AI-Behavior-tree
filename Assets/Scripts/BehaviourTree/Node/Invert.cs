@@ -14,11 +14,6 @@ namespace BehaviourTree.Nodes
         {
         }
 
-        public override void OnStart()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override void OnUpdate(float elapsedTime)
         {
             NodeState revertState = children[0].Evaluate();
@@ -33,12 +28,6 @@ namespace BehaviourTree.Nodes
             }
 
             state = NodeState.Running;
-        }
-
-
-        public override void OnEnd()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -10,18 +10,10 @@ namespace BehaviourTree.Nodes
         public ForceSuccess(List<Node> childrenNodes) : base("ForceSuccess", childrenNodes)
         {
         }
-
-        public override void OnStart()
-        {
-        }
-
+        
         public override NodeState Evaluate()
         {
             return NodeState.Success;
-        }
-
-        public override void OnEnd()
-        {
         }
     }
 }

@@ -43,11 +43,19 @@ namespace BehaviourTree.Nodes
         {
         }
 
+        /// <summary>
+        /// Check the current state of the node, eventually by checking state of children
+        /// </summary>
+        /// <returns>NodeState of the node</returns>
         public virtual NodeState Evaluate()
         {
             return state;
         }
 
+        
+        /// <summary>
+        /// Function called at the end of the execution of the node (Failed or Success)
+        /// </summary>
         public virtual void OnEnd()
         {
         }

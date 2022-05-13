@@ -9,19 +9,16 @@ namespace BehaviourTree.Nodes
     public class Log : Action
     {
         public string content;
+
         public Log(string logContent) : base("Log")
         {
             content = logContent;
         }
-
-        public override void OnStart(){}
 
         public override void OnUpdate(float elapsedTime)
         {
             Debug.Log(content);
             state = NodeState.Success;
         }
-        
-        public override void OnEnd(){}
     }
 }
