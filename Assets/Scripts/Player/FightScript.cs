@@ -4,31 +4,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class FightScript : MonoBehaviour
+public class FightScript : HealthController
 {
-    [SerializeField] [Range(25f, 1000f)] private float healthPoints = 750f;
-    
-    [SerializeField][Range(0f, 1000f)]
-    private float currentHeathPoints;
-    public Rigidbody Rb { get; private set; }
-    private void Awake()
-    {
-        Rb = GetComponent<Rigidbody>();
-    }
+    [SerializeField] private HitboxController hitbox;
 
+    [SerializeField] private float damage;
+
+    [SerializeField] private LayerMask targetMask;
     // Start is called before the first frame update
     void Start()
     {
-        currentHeathPoints = healthPoints;
+        hitbox.Duration = null;
+        hitbox.Damage = damage;
+        hitbox.TargetMask = targetMask;
     }
 
+    public void EnableHitbox()
+    {
+        hitbox.Col.enabled = true;
+    }
+
+    public void disableHitbox()
+    {
+        hitbox.Col.enabled = false;
+    }
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+        
+        if (Input.GetMouseButton(0))
+        {
+            animator.SetTrigger(AnimationNames.Slash);
+        }
     }
-
-    public void TakeDamage(float damage)
-    {
-        currentHeathPoints -= damage;
-    }
+    
 }

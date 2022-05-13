@@ -6,7 +6,7 @@ public class HitboxKickController : HitboxController
 {
     public float ForceKickProjection { get; set; }
 
-    protected override void customAction(FightScript fs)
+    protected override void customAction(HealthController fs)
     {
         fs.Rb.AddForce(transform.forward.normalized * ForceKickProjection, ForceMode.Impulse);
     }
