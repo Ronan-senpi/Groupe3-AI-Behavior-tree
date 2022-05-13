@@ -16,7 +16,7 @@ namespace BehaviourTree.Nodes
     {
         protected NodeState state = NodeState.NotExecuted;
         protected List<Node> children;
-        public string nodeName;
+        private string nodeName;
 
         public Node(string name, List<Node> childrenNodes)
         {
@@ -36,11 +36,16 @@ namespace BehaviourTree.Nodes
             return state;
         }
 
-        public abstract void OnEnd();
+        public virtual void OnEnd(){}
 
         public virtual void Reset()
         {
             state = NodeState.NotExecuted;
+        }
+
+        public string GetName()
+        {
+            return nodeName;
         }
     }
 }

@@ -1,7 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using BehaviourTree.Nodes;
 using UnityEngine;
 
+/// <summary>
+/// A class to manage every AI in the scene
+/// </summary>
 public class AIUpdater : MonoBehaviour
 {
     #region Singleton Instance
@@ -31,51 +35,55 @@ public class AIUpdater : MonoBehaviour
 
     public const float AI_UPDATE_FREQUENCY = 0.05f;
     private bool updatingAI = true;
-    private Node currentNode;
+    private Dictionary<string, Node> AINodes = new Dictionary<string, Node>();
     private NodeState previousState;
 
-    private void Awake()
+    private void Start()
     {
         StartCoroutine(UpdateAI());
     }
 
 
-    /// <summary>
-    /// Update AI Behaviour. Called every AI_UPDATE_FREQUENCY seconds
-    /// </summary>
-    /// <returns></returns>
     private IEnumerator UpdateAI()
     {
         var wait = new WaitForSeconds(AI_UPDATE_FREQUENCY);
+        Node currentNode;
         while (updatingAI)
         {
-            if (currentNode != null)
+            Debug.Log(AINodes.Count);
+            foreach (var currentAI in AINodes)
             {
-                NodeState currentState = currentNode.Evaluate();
-                if (currentState == NodeState.NotExecuted)
+                currentNode = currentAI.Value;
+                if (currentNode != null)
                 {
-                    currentNode.OnStart();
-                    currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
-                }
-                else if (currentState == NodeState.Running)
-                {
-                    currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
-                }
-                else if (previousState != currentState &&
-                         (currentState == NodeState.Success || currentState == NodeState.Failed))
-                {
-                    currentNode.OnEnd();
-                }
+                    NodeState currentState = currentNode.Evaluate();
+                    if (currentState == NodeState.NotExecuted)
+                    {
+                        currentNode.OnStart();
+                        currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
+                    }
+                    else if (currentState == NodeState.Running)
+                    {
+                        currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
+                    }
+                    else if (previousState != currentState &&
+                             (currentState == NodeState.Success || currentState == NodeState.Failed))
+                    {
+                        currentNode.OnEnd();
+                    }
 
-                previousState = currentState;
+                    previousState = currentState;
+                }
             }
 
             yield return wait;
         }
     }
 
-    public void SetCurrentNode(Node newNode)
+
+    public void SetCurrentNode(string id, Node newNode)
     {
-        currentNode = newNode;
+        Debug.Log("Update AI " + id +" with node " + newNode.GetName());
+        AINodes[id] = newNode;
     }
 }

@@ -477,6 +477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96896c56d0a54f098bb6aaf04ada2ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  treeUpdateFrequency: 0.2
+  identifier: Enemy
   enemyController: {fileID: 1136094562}
   jumpingForce: 5
   target: {fileID: 2141671654}
@@ -539,6 +541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fbc4d6c6c70efd4aa2f5859111cad28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  treeUpdateFrequency: 0.2
+  identifier: 
 --- !u!4 &1672246786
 Transform:
   m_ObjectHideFlags: 0

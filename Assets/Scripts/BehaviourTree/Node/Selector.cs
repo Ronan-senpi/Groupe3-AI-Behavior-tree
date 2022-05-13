@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace BehaviourTree.Nodes
 {
-    public class Selector : Node
+    public class Selector : Control
     {
-        public Selector(List<Node> childrenNodes) : base("Selector", childrenNodes)
+        public Selector(List<Node> childrenNodes, string treeId) : base("Selector", treeId, childrenNodes)
         {
         }
 
@@ -23,7 +23,7 @@ namespace BehaviourTree.Nodes
                 NodeState childState = node.Evaluate();
                 if (childState == NodeState.NotExecuted)
                 {
-                    AIUpdater.Instance.SetCurrentNode(node);
+                    AIUpdater.Instance.SetCurrentNode(treeId, node);
                     state = NodeState.Running;
                     return state;
                 }
@@ -46,7 +46,7 @@ namespace BehaviourTree.Nodes
                 node.Reset();
             }
         }
-        
+
         public override void OnEnd()
         {
         }
