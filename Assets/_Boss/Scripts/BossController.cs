@@ -96,15 +96,22 @@ public class BossController : LineOfSight
     private float powerUpRate = 1.33f;
 
     [SerializeField] [Range(0, 1)] private float powerUpThreshold = 0.33f;
+    public float PowerUpThreshold => powerUpThreshold;
     [SerializeField] GameObject effect;
-    private bool canPowerUp = true;
+    public GameObject Effect => effect;
+    public bool IsPowerUp { get; set; }
 
     #endregion PowerUp
 
     private BossTree bt;
-    
+
     private HealthController hc;
     private float powerRate = 1f;
+
+    public float PowerRate
+    {
+        set { powerRate = value; }
+    }
 
     private void Start()
     {
@@ -127,7 +134,6 @@ public class BossController : LineOfSight
 
     private void Update()
     {
-        
     }
 
     //Fonction pour le BT
@@ -138,8 +144,6 @@ public class BossController : LineOfSight
         {
             hc.CanTakeDamage = false;
             powerRate = powerUpRate;
-            animator.SetTrigger(AnimationNames.Power);
-            effect.SetActive(true);
             //Remetre le CanTakeDamage = true apres l'animation
             hc.CanTakeDamage = true;
         }
@@ -162,44 +166,10 @@ public class BossController : LineOfSight
         }
     }
 
-    void AttackCastSpell()
-    {
-        float distanceTarget = Vector3.Distance(target.position, transform.position);
-        if (canCastSpell && (spellRange.x <= distanceTarget && distanceTarget <= spellRange.y))
-        {
-            hitboxSpell.gameObject.SetActive(true);
-            canCastSpell = false;
-            animator.SetTrigger(AnimationNames.Spell);
-            hitboxSpell.gameObject.transform.position =
-                new Vector3(target.position.x, 0, target.position.z);
-            StartCoroutine(ResetSpellStatus());
-        }
-    }
-
     IEnumerator ResetSpellStatus()
     {
         yield return new WaitForSeconds(spellCooldown);
         canCastSpell = true;
         hitboxSpell.gameObject.transform.position = spellPositionOrigin;
-    }
-
-    void AttackKick()
-    {
-        float distanceTarget = Vector3.Distance(target.position, transform.position);
-        if ((kickRange.x <= distanceTarget && distanceTarget <= kickRange.y))
-        {
-            hitboxKick.gameObject.SetActive(true);
-            animator.SetTrigger(AnimationNames.Kick);
-        }
-    }
-
-    void AttackSword()
-    {
-        float distanceTarget = Vector3.Distance(target.position, transform.position);
-        if ((swordRange.x <= distanceTarget && distanceTarget <= swordRange.y))
-        {
-            hitboxSword.gameObject.SetActive(true);
-            animator.SetTrigger(AnimationNames.Slash);
-        }
     }
 }

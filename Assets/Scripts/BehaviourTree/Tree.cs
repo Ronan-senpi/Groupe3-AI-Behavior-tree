@@ -19,7 +19,7 @@ namespace BehaviourTree
         private bool updatingTree = true;
 
         // Start is called before the first frame update
-        void Awake()
+        protected void Awake()
         {
             root = SetupTree();
             AIUpdater.Instance.SetCurrentNode(identifier, root);
@@ -32,7 +32,6 @@ namespace BehaviourTree
             while (updatingTree)
             {
                 NodeState currentState = root.Evaluate();
-                Debug.Log("currentState : " + currentState);
                 if (currentState == NodeState.Success)
                 {
                     ResetTree();

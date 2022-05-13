@@ -55,7 +55,6 @@ public class AIUpdater : MonoBehaviour
         while (updatingAI)
         {
             bufferAINodes = new Dictionary<string, Node>(AINodes); //createBuffer(AINodes);
-            Debug.Log("bufferAINodes.Count " + bufferAINodes.Count + " AINodes.Count " + AINodes.Count);
             foreach (var currentAI in bufferAINodes)
             {
                 currentNode = currentAI.Value;
@@ -68,25 +67,19 @@ public class AIUpdater : MonoBehaviour
                 NodeState currentState = currentNode.Evaluate();
                 if (currentState == NodeState.NotExecuted)
                 {
-                    Debug.Log("NotExecuted");
                     currentNode.OnStart();
                     currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
                 }
                 else if (currentState == NodeState.Running)
                 {
-                    Debug.Log("Running");
                     currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
                 }
                 else if (previousState != currentState &&
                          (currentState == NodeState.Success || currentState == NodeState.Failed))
                 {
-                    Debug.Log("The end");
                     currentNode.OnEnd();
                 }
-                else
-                {
-                    Debug.Log(currentState);
-                }
+
 
                 previousState = currentState;
             }
