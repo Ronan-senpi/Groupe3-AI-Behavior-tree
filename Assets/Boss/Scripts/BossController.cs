@@ -4,7 +4,8 @@ using UnityExtendedEditor.Attributes;
 using System.Collections;
 using UnityEngine.Serialization;
 
-static class BossAnimationNames
+
+static class AnimationNames
 {
     public static string Spell { get; } = "Spell";
     public static string Death { get; } = "Death";
@@ -20,11 +21,6 @@ public class BossController : LineOfSight
 {
     [SerializeField] private Transform target;
     [SerializeField] private Animator animator;
-    [SerializeField] [Range(25, 100)] private float healthPoints = 50f;
-    public float HealthPoints => healthPoints;
-    private float currentHealthPoints = 50f;
-    [SerializeField] [Range(0, 3)] private float recoveryTime = 1.5f;
-    private bool canTakeDamage = true;
 
 
     [Header("Movement")] [SerializeField] private float speed = 10f;
@@ -67,7 +63,6 @@ public class BossController : LineOfSight
 
     #region spell
 
-    
     [Header("Spell")] [SerializeField] [MinMaxSlider(1, 20)]
     private Vector2 spellRange = new Vector2(10f, 20f);
 
@@ -98,7 +93,6 @@ public class BossController : LineOfSight
 
     private void Start()
     {
-        currentHealthPoints = healthPoints;
         // spell hitbox stetup
         hitboxSpell.Damage = SpellDamages;
         hitboxSpell.Duration = spellDuration;
@@ -115,38 +109,9 @@ public class BossController : LineOfSight
 
     private void Update()
     {
-        if (currentHealthPoints <= 0)
-        {
-            this.Death();
-            return;
-        }
-
-        AttackCastSpell();
+        
     }
-
-    void Death()
-    {
-        animator.SetTrigger(BossAnimationNames.Death);
-    }
-
-    void Impact(int damages)
-    {
-        float distanceTarget = Vector3.Distance(target.position, transform.position);
-        if (canTakeDamage && (kickRange.x <= distanceTarget && distanceTarget <= kickRange.y))
-        {
-            canTakeDamage = false;
-            animator.SetTrigger(BossAnimationNames.Impact);
-            currentHealthPoints -= damages;
-            StartCoroutine(ResetDamageStatus());
-        }
-    }
-
-    IEnumerator ResetDamageStatus()
-    {
-        yield return new WaitForSeconds(recoveryTime);
-        canTakeDamage = true;
-    }
-
+    
     //Fonction pour le BT
 
     void PowerUp()
@@ -162,11 +127,11 @@ public class BossController : LineOfSight
         if (Vector3.Distance(transform.position, targetPos) > selfSpace)
         {
             transform.position += transform.forward * (Time.deltaTime * speed);
-            animator.SetBool(BossAnimationNames.Run, true);
+            animator.SetBool(AnimationNames.Run, true);
         }
         else
         {
-            animator.SetBool(BossAnimationNames.Run, false);
+            animator.SetBool(AnimationNames.Run, false);
         }
     }
 
@@ -177,7 +142,7 @@ public class BossController : LineOfSight
         {
             hitboxSpell.gameObject.SetActive(true);
             canCastSpell = false;
-            animator.SetTrigger(BossAnimationNames.Spell);
+            animator.SetTrigger(AnimationNames.Spell);
             hitboxSpell.gameObject.transform.position =
                 new Vector3(target.position.x, 0, target.position.z);
             StartCoroutine(ResetSpellStatus());
@@ -197,7 +162,7 @@ public class BossController : LineOfSight
         if ((kickRange.x <= distanceTarget && distanceTarget <= kickRange.y))
         {
             hitboxKick.gameObject.SetActive(true);
-            animator.SetTrigger(BossAnimationNames.Kick);
+            animator.SetTrigger(AnimationNames.Kick);
         }
     }
 
@@ -207,7 +172,7 @@ public class BossController : LineOfSight
         if ((swordRange.x <= distanceTarget && distanceTarget <= swordRange.y))
         {
             hitboxSword.gameObject.SetActive(true);
-            animator.SetTrigger(BossAnimationNames.Slash);
+            animator.SetTrigger(AnimationNames.Slash);
         }
     }
 }
