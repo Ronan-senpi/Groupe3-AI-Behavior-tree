@@ -18,6 +18,8 @@ public class GuardController : MonoBehaviour
 
     int _targetWaypointIndex = 1;
     bool _cooldown = false;
+    [SerializeField] private GameObject _canvas;
+    bool _disabled = false;
     
     void Start()
     {
@@ -41,7 +43,14 @@ public class GuardController : MonoBehaviour
         _playerSpotted = _playerVisibleTimer >= _timeToSpotPlayer ?  true : false;
     }
 
-    bool CanSeePlayer(){
+    private void OnCollisionEnter(Collision collision){
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            _canvas.GetComponent<StealthGameUI>().ShowGameLoseUI();
+        }
+    }
+
+    public bool CanSeePlayer(){
         if(Vector3.Distance(transform.position, _playerTransform.position) >= _viewDistance){
             return false;
         }

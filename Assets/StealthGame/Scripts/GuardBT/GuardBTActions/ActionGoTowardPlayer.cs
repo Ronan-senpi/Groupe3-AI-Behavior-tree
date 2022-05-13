@@ -20,6 +20,7 @@ public class ActionGoTowardPlayer : Action
     }
     public override void OnUpdate(float elapsedTime)
     {
+        //_guardGameObject.GetComponent<GuardController>().ChasePlayer();
         _guardGameObject.transform.position = Vector3.MoveTowards(_guardGameObject.transform.position, _guardGameObject.GetComponent<GuardController>().getplayerTransform().position, _guardMoveSpeed * elapsedTime);
         _guardGameObject.transform.LookAt(_guardGameObject.GetComponent<GuardController>().getplayerTransform().position);
         _waitCounter += elapsedTime;
@@ -28,6 +29,7 @@ public class ActionGoTowardPlayer : Action
             _guardGameObject.GetComponent<GuardController>().StartCooldown();
             state = NodeState.Success;
         }
+
         //if(Vector3.Distance(_guardGameObject.transform.position, _guardGameObject.GetComponent<GuardController>().getplayerTransform().position) < _maxRange)
             
     }

@@ -8,7 +8,7 @@ public class GuardBT : Tree
 {
     [SerializeField] private GameObject _guardGameObject;
     [SerializeField] private float _guardMoveSpeedWalk = 5;
-    [SerializeField] private float _guardMoveSpeedRun = 7;
+    [SerializeField] private float _guardMoveSpeedRun = 6;
     [SerializeField] private Transform _pathHolder;
 
     protected override Node SetupTree()

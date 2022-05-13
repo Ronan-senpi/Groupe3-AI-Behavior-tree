@@ -7,6 +7,7 @@ public class PlayerStealth : MonoBehaviour
     [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float smoothMoveTime = .1f;
     [SerializeField] private float turnSpeed = 8;
+    [SerializeField] private GameObject _canvas;
 
     float angle;
     float smoothInputMagnitude;
@@ -38,5 +39,11 @@ public class PlayerStealth : MonoBehaviour
         rigidbody.MoveRotation(Quaternion.Euler(Vector3.up * angle));
         rigidbody.MovePosition(rigidbody.position + velocity * Time.deltaTime);
         // rigidbody.MovePosition(rigidbody.position + transform.TransformDirection(velocity) * Time.fixedDeltaTime);
+    }
+    private void OnCollisionEnter(Collision collision){
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Reward"))
+        {
+            _canvas.GetComponent<StealthGameUI>().ShowGameWinUI();
+        }
     }
 }
