@@ -13,7 +13,7 @@ public class EnemyTree : Tree
     {
         MoveForward moveForward = new MoveForward(enemyController, 1, 2);
         JumpAction jump = new JumpAction(enemyController, jumpingForce);
-        CheckDistance dist = new CheckDistance(this.transform, target);
+        CheckDistance dist = new CheckDistance(this.transform, target, 5);
         Sequence sequence = new Sequence(new List<Node> { dist, jump }, identifier);
 
         Selector selec = new Selector(new List<Node> { sequence, moveForward }, identifier);

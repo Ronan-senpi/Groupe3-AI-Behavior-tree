@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3cd279f30e86e0488ed8b90a2aff45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AI_UPDATE_FREQUENCY: 0.05
 --- !u!4 &552907631
 Transform:
   m_ObjectHideFlags: 0

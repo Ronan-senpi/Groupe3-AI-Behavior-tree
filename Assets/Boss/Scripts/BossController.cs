@@ -20,13 +20,17 @@ static class AnimationNames
 public class BossController : LineOfSight
 {
     [SerializeField] private Transform target;
+    public Transform Target => target;
     [SerializeField] private Animator animator;
-
+    public Animator Animator => animator;
 
     [Header("Movement")] [SerializeField] private float speed = 10f;
+    public float Speed => speed;
+
+    public bool CanRun { get; set; }
 
     [SerializeField] private float selfSpace = 3f;
-
+    public float SelfSpace => selfSpace;
     [SerializeField] private LayerMask toHitLayer;
 
     #region Kick
@@ -34,7 +38,9 @@ public class BossController : LineOfSight
     [Header("Kick")] [SerializeField] [MinMaxSlider(0.1f, 20)]
     private Vector2 kickRange = new Vector2(0f, 5f);
 
-    [FormerlySerializedAs("distanceKickProjection")] [SerializeField] private float forceKickProjection = 5f;
+    [FormerlySerializedAs("distanceKickProjection")] [SerializeField]
+    private float forceKickProjection = 5f;
+
     [SerializeField] private float kickDamages = 2.5f;
     [SerializeField] private HitboxKickController hitboxKick;
 
@@ -54,6 +60,7 @@ public class BossController : LineOfSight
 
     [SerializeField] private float sowrdDamages = 5f;
     [SerializeField] private HitboxController hitboxSword;
+    public HitboxController HitboxSword => hitboxSword;
     [SerializeField] private Color swordColor = Color.cyan;
     public Vector2 SwordRange => swordRange;
     public float SwordDamages => sowrdDamages * powerRate;
@@ -84,11 +91,18 @@ public class BossController : LineOfSight
 
     #region PowerUp
 
+    
     [Header("PowerUp")] [SerializeField] [Range(1, 2)]
     private float powerUpRate = 1.33f;
-
+    [SerializeField] [Range(0, 1)]
+    private float powerUpThreshold =0.33f;
+    [SerializeField] GameObject effect;
+    private bool canPowerUp = true;
     #endregion PowerUp
 
+    private BossTree bt;
+    
+    private HealthController hc;
     private float powerRate = 1f;
 
     private void Start()
@@ -105,17 +119,29 @@ public class BossController : LineOfSight
         //sword hitbox setup
         hitboxSword.Damage = SwordDamages;
         hitboxSword.TargetMask = toHitLayer;
+
+        hc = GetComponent<HealthController>();
+        bt = GetComponent<BossTree>();
     }
 
     private void Update()
     {
         
     }
-    
+
     //Fonction pour le BT
 
     void PowerUp()
     {
+        if (hc.CurrentHealthPoints <= hc.HealthPoints * powerUpThreshold)
+        {
+            hc.CanTakeDamage = false;
+            powerRate = powerUpRate;
+            animator.SetTrigger(AnimationNames.Power);
+            effect.SetActive(true);
+            //Remetre le CanTakeDamage = true apres l'animation
+            hc.CanTakeDamage = true;
+        }
     }
 
     void ReachPlayer()
