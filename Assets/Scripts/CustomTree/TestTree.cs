@@ -10,7 +10,7 @@ public class TestTree : Tree
         Debug.Log("Setup");
         Log log = new Log("Hello Tree!");
         Wait wait = new Wait(0.99f);
-        Sequence sequence = new Sequence(new List<Node>{wait,log});
+        Sequence sequence = new Sequence(new List<Node> { wait, log }, identifier);
         //Repeat repeat = new Repeat(sequence);
         return sequence;
     }

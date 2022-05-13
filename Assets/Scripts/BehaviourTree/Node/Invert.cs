@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace BehaviourTree.Nodes
 {
+    /// <summary>
+    /// This node can only have one node child.
+    /// Returns Failed when child state is Success, or Success when child state is Failed
+    /// </summary>
     public class Invert : Node
     {
         public Invert(Node child) : base("Invert", new List<Node>() { child })
         {
-        }
-
-        public override void OnStart()
-        {
-            throw new System.NotImplementedException();
         }
 
         public override void OnUpdate(float elapsedTime)
@@ -29,12 +28,6 @@ namespace BehaviourTree.Nodes
             }
 
             state = NodeState.Running;
-        }
-
-
-        public override void OnEnd()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -5,16 +5,18 @@ using UnityEngine;
 
 namespace BehaviourTree.Nodes
 {
-    public class Selector : Node
+    /// <summary>
+    /// Selector of behaviour tree.
+    /// Iterates on nodes in children to find the next action to execute.
+    /// Choose the first node that is in NotExecuted state and can be executed.
+    /// If the node is in Failed State, the selector moves to the next child.
+    /// The last node will be the default action to execute
+    /// </summary>
+    public class Selector : Control
     {
-        public Selector(List<Node> childrenNodes) : base("Selector", childrenNodes)
+        public Selector(List<Node> childrenNodes, string treeId) : base("Selector", treeId, childrenNodes)
         {
         }
-
-        public override void OnStart()
-        {
-        }
-
 
         public override NodeState Evaluate()
         {
@@ -23,7 +25,7 @@ namespace BehaviourTree.Nodes
                 NodeState childState = node.Evaluate();
                 if (childState == NodeState.NotExecuted)
                 {
-                    AIUpdater.Instance.SetCurrentNode(node);
+                    AIUpdater.Instance.SetCurrentNode(treeId, node);
                     state = NodeState.Running;
                     return state;
                 }
@@ -45,10 +47,6 @@ namespace BehaviourTree.Nodes
             {
                 node.Reset();
             }
-        }
-        
-        public override void OnEnd()
-        {
         }
     }
 }

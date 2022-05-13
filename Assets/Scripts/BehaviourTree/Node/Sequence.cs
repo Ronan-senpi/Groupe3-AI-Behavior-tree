@@ -5,37 +5,37 @@ using UnityEngine;
 
 namespace BehaviourTree.Nodes
 {
-    public class Sequence : Node
+    /// <summary>
+    /// Sequence of behaviour tree.
+    /// Iterates on nodes in children until every node is in Success state.
+    /// Stop execution if a node return Failed.
+    /// </summary>
+    public class Sequence : Control
     {
-        public Sequence(List<Node> childrenNodes) : base("Sequence", childrenNodes)
+        public Sequence(List<Node> childrenNodes, string treeId) : base("Sequence", treeId, childrenNodes)
         {
         }
 
         public override NodeState Evaluate()
         {
-            //Debug.Log("Evaluate de sequence");
             foreach (Node node in children)
             {
                 NodeState childState = node.Evaluate();
-                
-                //Debug.Log("Inside sequence : " + node.nodeName + " node's state is " + childState);
-                
+
                 if (childState == NodeState.NotExecuted)
                 {
-                    AIUpdater.Instance.SetCurrentNode(node);
+                    AIUpdater.Instance.SetCurrentNode(treeId, node);
                     state = NodeState.Running;
                     return state;
                 }
 
                 if (childState != NodeState.Success)
                 {
-                    
                     state = childState;
                     return state;
                 }
             }
 
-            //Debug.Log("SEQUENCE SUCCESS");
             state = NodeState.Success;
             return state;
         }
@@ -46,10 +46,6 @@ namespace BehaviourTree.Nodes
             {
                 node.Reset();
             }
-        }
-        public override void OnEnd()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

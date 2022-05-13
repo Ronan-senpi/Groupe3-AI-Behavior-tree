@@ -14,9 +14,9 @@ public class EnemyTree : Tree
         MoveForward moveForward = new MoveForward(enemyController, 1, 2);
         JumpAction jump = new JumpAction(enemyController, jumpingForce);
         CheckDistance dist = new CheckDistance(this.transform, target);
-        Sequence sequence = new Sequence(new List<Node> { dist, jump });
+        Sequence sequence = new Sequence(new List<Node> { dist, jump }, identifier);
 
-        Selector selec = new Selector(new List<Node>{sequence, moveForward});
+        Selector selec = new Selector(new List<Node> { sequence, moveForward }, identifier);
 
         return selec;
     }

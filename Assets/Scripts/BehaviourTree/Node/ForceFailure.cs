@@ -12,17 +12,9 @@ namespace BehaviourTree.Nodes
         {
         }
 
-        public override void OnStart()
-        {
-        }
-
         public override NodeState Evaluate()
         {
             return NodeState.Failed;
-        }
-
-        public override void OnEnd()
-        {
         }
     }
 }
