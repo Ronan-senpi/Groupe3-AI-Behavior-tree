@@ -14,9 +14,9 @@ public class BossTree : Tree
         CheckBetween checkKickDist = new CheckBetween(boss.transform, boss.Target, boss.KickRange);
         CheckBetween checkSpellDist = new CheckBetween(boss.transform, boss.Target, boss.SpellRange);
 
-        AttackSword slash = new AttackSword(boss);
-        AttackKick kick = new AttackKick(boss);
-        AttackSpell spell = new AttackSpell(boss);
+        Attack slash = new Attack(boss, boss.HitboxSword, AnimationNames.Slash);
+        Attack kick = new Attack(boss, boss.HitboxKick, AnimationNames.Kick);
+        Attack spell = new Attack(boss, boss.HitboxSpell, AnimationNames.Spell);
 
         ReachPlayer reachPlayer = new ReachPlayer(boss, boss.Target);
 
