@@ -8,6 +8,7 @@ public class ActionGoTowardPlayer : Action
     }
     public override void OnStart()
     {
+        Debug.Log("Start Go Toward Player");
     }
     public override void OnUpdate(float elapsedTime)
     {

@@ -14,6 +14,7 @@ public class Guard : MonoBehaviour
     [SerializeField] private LayerMask viewMask;
 
     float viewAngle;
+    Color originalSpotLightColor;
     float playerVisibleTimer;
     bool canSee;
 
@@ -22,7 +23,6 @@ public class Guard : MonoBehaviour
     int targetWaypointIndex;
 
     Transform player;
-    Color originalSpotLightColor;
 
     void Start(){
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -52,7 +52,7 @@ public class Guard : MonoBehaviour
         spotlight.color = Color.Lerp(originalSpotLightColor, Color.red, playerVisibleTimer / timeToSpotPlayer);
 
         if(playerVisibleTimer >= timeToSpotPlayer){
-            print("SPOTTED");
+            // print("SPOTTED");
         }
 
     }
