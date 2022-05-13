@@ -42,10 +42,6 @@ public class HitboxController : MonoBehaviour
                 customAction(hc);
                 hc.Impact(Damage);
             }
-            else
-            {
-                Debug.LogError("HealthController non trouvé : " + other.transform.name);
-            }
         }
     }
 }
