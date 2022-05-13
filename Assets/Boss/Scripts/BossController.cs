@@ -100,6 +100,8 @@ public class BossController : LineOfSight
     private bool canPowerUp = true;
     #endregion PowerUp
 
+    private BossTree bt;
+    
     private HealthController hc;
     private float powerRate = 1f;
 
@@ -119,14 +121,12 @@ public class BossController : LineOfSight
         hitboxSword.TargetMask = toHitLayer;
 
         hc = GetComponent<HealthController>();
+        bt = GetComponent<BossTree>();
     }
 
     private void Update()
     {
-        if (CanRun)
-        {
-            ReachPlayer();
-        }
+        
     }
 
     //Fonction pour le BT
