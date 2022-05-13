@@ -61,9 +61,9 @@ public class GuardController : MonoBehaviour
             return false;
         }
         
-        /*if(Physics.Linecast(transform.position, _playerTransform.position, _viewMask)){
+        if(Physics.Linecast(transform.position, _playerTransform.position, _viewMask)){
             return false;
-        }*/
+        }
         
         return true;
     }
