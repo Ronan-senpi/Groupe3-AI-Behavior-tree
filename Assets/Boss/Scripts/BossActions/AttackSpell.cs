@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using BehaviourTree.Nodes;
 using UnityEngine;
 
-public class AttackKick : Action
+public class AttackSpell : Action
 {
     private BossController boss;
     private float animationDuration;
     private float currentTimer;
-    public AttackKick(BossController bc) : base("AttackKick")
+    public AttackSpell(BossController bc) : base("AttackSpell")
     {
         boss = bc;
     }
@@ -16,8 +16,8 @@ public class AttackKick : Action
     public override void OnStart()
     {
         base.OnStart();
-        boss.HitboxKick.gameObject.SetActive(true);
-        boss.Animator.SetTrigger(AnimationNames.Kick);
+        boss.HitboxSpell.gameObject.SetActive(true);
+        boss.Animator.SetTrigger(AnimationNames.Spell);
         animationDuration = boss.Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         currentTimer = 0;
     }
@@ -33,7 +33,6 @@ public class AttackKick : Action
 
     public override void OnEnd()
     {
-        
         currentTimer = 0;
     }
 }
