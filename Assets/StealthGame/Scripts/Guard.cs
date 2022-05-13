@@ -18,6 +18,9 @@ public class Guard : MonoBehaviour
     bool canSee;
 
     public Transform pathHolder;
+    Vector3[] waypoints;
+    int targetWaypointIndex;
+
     Transform player;
     Color originalSpotLightColor;
 
@@ -26,11 +29,13 @@ public class Guard : MonoBehaviour
         viewAngle = spotlight.spotAngle;
         originalSpotLightColor = spotlight.color;
 
-        Vector3[] waypoints = new Vector3[pathHolder.childCount];
+        waypoints = new Vector3[pathHolder.childCount];
         for(int i = 0 ; i < waypoints.Length; i++){
             waypoints[i] = pathHolder.GetChild(i).position;
             waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
         }
+        transform.position = waypoints[0];
+        targetWaypointIndex = 1;
         StartCoroutine(FollowPath(waypoints));
     }
 
@@ -49,6 +54,7 @@ public class Guard : MonoBehaviour
         if(playerVisibleTimer >= timeToSpotPlayer){
             print("SPOTTED");
         }
+
     }
 
     bool CanSeePlayer(){
@@ -70,9 +76,8 @@ public class Guard : MonoBehaviour
     }
 
     IEnumerator FollowPath(Vector3[] waypoints){
-        transform.position = waypoints[0];
 
-        int targetWaypointIndex = 1;
+        
         Vector3 targetWaypoint = waypoints[targetWaypointIndex];
         transform.LookAt(targetWaypoint);
 

@@ -479,6 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyController: {fileID: 1136094562}
   jumpingForce: 5
+  target: {fileID: 0}
 --- !u!54 &1136094561
 Rigidbody:
   m_ObjectHideFlags: 0
