@@ -19,12 +19,10 @@ public class CheckDistance : Condition
     {
         if (Vector3.Distance(target.position, pos.position) < 10)
         {
-            Debug.Log("A distance");
             state = NodeState.Success;
         }
         else
         {
-            Debug.Log("trop loin");
             state = NodeState.Failed;
         }
     }

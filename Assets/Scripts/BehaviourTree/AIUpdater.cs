@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AIUpdater : MonoBehaviour
 {
+    #region Singleton Instance
+
     private static AIUpdater instance;
 
     public static AIUpdater Instance
@@ -19,29 +21,37 @@ public class AIUpdater : MonoBehaviour
                     instance = go.AddComponent<AIUpdater>();
                 }
             }
+
             return instance;
         }
     }
 
+    #endregion
+
+
     public const float AI_UPDATE_FREQUENCY = 0.05f;
     private bool updatingAI = true;
     private Node currentNode;
+    private NodeState previousState;
 
     private void Awake()
     {
         StartCoroutine(UpdateAI());
     }
 
+
+    /// <summary>
+    /// Update AI Behaviour. Called every AI_UPDATE_FREQUENCY seconds
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator UpdateAI()
     {
-        Debug.Log("UpdateAI first call");
         var wait = new WaitForSeconds(AI_UPDATE_FREQUENCY);
         while (updatingAI)
         {
             if (currentNode != null)
             {
                 NodeState currentState = currentNode.Evaluate();
-                //Debug.Log(currentNode.nodeName + " " + currentState);
                 if (currentState == NodeState.NotExecuted)
                 {
                     currentNode.OnStart();
@@ -51,12 +61,14 @@ public class AIUpdater : MonoBehaviour
                 {
                     currentNode.OnUpdate(AI_UPDATE_FREQUENCY);
                 }
-                else if (currentState == NodeState.Success || currentState == NodeState.Failed)
+                else if (previousState != currentState &&
+                         (currentState == NodeState.Success || currentState == NodeState.Failed))
                 {
                     currentNode.OnEnd();
                 }
+
+                previousState = currentState;
             }
-            
 
             yield return wait;
         }
