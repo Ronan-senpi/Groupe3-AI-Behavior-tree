@@ -32,7 +32,6 @@ namespace BehaviourTree
             while (updatingTree)
             {
                 NodeState currentState = root.Evaluate();
-                Debug.Log("currentState : " + currentState);
                 if (currentState == NodeState.Success)
                 {
                     ResetTree();
