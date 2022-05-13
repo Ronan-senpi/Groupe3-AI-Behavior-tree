@@ -8,35 +8,32 @@ public class GuardController : MonoBehaviour
     [SerializeField] private LayerMask _viewMask;
     float _viewDistance;
     float _viewAngle;
+    float _originalSpotLightRange;
     Color _originalSpotLightColor;
     Transform _playerTransform;
     
-    [SerializeField] private float _timeToSpotPlayer = .5f;
+    [SerializeField] private float _timeToSpotPlayer = .2f;
     float _playerVisibleTimer;
-    bool _playerSpotted;
+    bool _playerSpotted = false;
 
     int _targetWaypointIndex = 1;
+    bool _cooldown = false;
     
     void Start()
     {
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        _viewDistance = _spotlight.range * 0.9f; // La distance de détection est légèrement moins grande que la longueur du spotlight
+        _viewDistance = _originalSpotLightRange = _spotlight.range * 0.9f; // La distance de détection est légèrement moins grande que la longueur du spotlight
         _viewAngle = _spotlight.spotAngle;
         _originalSpotLightColor = _spotlight.color;
-        _playerSpotted = false;
-        
     }
 
     void Update()
     {
-        //_playerVisibleTimer += CanSeePlayer() ? Time.deltaTime : -Time.deltaTime;
-        if(CanSeePlayer())
-        {
-            _playerVisibleTimer += Time.deltaTime;
+        if(_cooldown){
+            return;
         }
-        else{
-            _playerVisibleTimer -= Time.deltaTime;
-        }
+
+        _playerVisibleTimer += CanSeePlayer() ? Time.deltaTime : -Time.deltaTime;
 
         _playerVisibleTimer = Mathf.Clamp(_playerVisibleTimer, 0, _timeToSpotPlayer);
         _spotlight.color = Color.Lerp(_originalSpotLightColor, Color.red, _playerVisibleTimer / _timeToSpotPlayer);
@@ -55,15 +52,34 @@ public class GuardController : MonoBehaviour
             return false;
         }
         
-        if(Physics.Linecast(transform.position, _playerTransform.position, _viewMask)){
+        /*if(Physics.Linecast(transform.position, _playerTransform.position, _viewMask)){
             return false;
-        }
+        }*/
         
         return true;
     }
 
+    public void StartCooldown(){
+        if(_cooldown)
+            return;
+        StartCoroutine(WaitForSec(3f));
+    }
+
+    IEnumerator WaitForSec(float seconds){
+        _cooldown = true;
+        _spotlight.range = 1;
+        yield return new WaitForSeconds(seconds);
+        _cooldown = false;
+        _spotlight.range = _originalSpotLightRange;
+    }
+
+
     public bool isPlayerSpotted(){
         return _playerSpotted;
+    }
+
+    public bool isOnCooldown(){
+        return _cooldown;
     }
 
     public void setTargetWaypointIndex(int targetWaypointIndex){
@@ -72,6 +88,10 @@ public class GuardController : MonoBehaviour
 
     public int getTargetWaypointIndex(){
         return _targetWaypointIndex;
+    }
+
+    public Transform getplayerTransform(){
+        return _playerTransform;
     }
 
 }

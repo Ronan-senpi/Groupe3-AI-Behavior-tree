@@ -41,6 +41,7 @@ public class ActionGuardPatrol : Action
     {
         if(_guardGameObject.GetComponent<GuardController>().isPlayerSpotted())
             state = NodeState.Success;
+            
         _targetWaypointIndex = _guardGameObject.GetComponent<GuardController>().getTargetWaypointIndex();
 
         Vector3 targetWaypoint = _waypoints[_targetWaypointIndex];

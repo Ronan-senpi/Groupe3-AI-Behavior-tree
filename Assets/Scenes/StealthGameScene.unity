@@ -792,7 +792,8 @@ MonoBehaviour:
   treeUpdateFrequency: 0.2
   identifier: Guard
   _guardGameObject: {fileID: 1126113232}
-  _guardMoveSpeed: 4
+  _guardMoveSpeedWalk: 5
+  _guardMoveSpeedRun: 8
   _pathHolder: {fileID: 656246189}
 --- !u!1 &1126113232
 GameObject:
@@ -909,7 +910,7 @@ MonoBehaviour:
   _spotlight: {fileID: 1310181828}
   _viewMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   _timeToSpotPlayer: 0.5
 --- !u!1 &1310181826
 GameObject:
@@ -1068,7 +1069,7 @@ GameObject:
   - component: {fileID: 1591116718}
   - component: {fileID: 1591116717}
   - component: {fileID: 1591116716}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1568,7 +1569,7 @@ MonoBehaviour:
   viewDistance: 8
   viewMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   pathHolder: {fileID: 64636530}
 --- !u!1 &2053930894
 GameObject:
@@ -1616,7 +1617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2094131145
 Transform:
   m_ObjectHideFlags: 0

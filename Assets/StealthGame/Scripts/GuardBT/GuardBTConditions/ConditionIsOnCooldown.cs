@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using BehaviourTree.Nodes;
 using UnityEngine;
 
-public class ConditionIsPlayerSpotted : Condition
+public class ConditionIsOnCooldown : Condition
 {
     private GameObject _guardGameObject;
-    public ConditionIsPlayerSpotted(GameObject guardGameObject) : base("Is Player Spotted")
+    public ConditionIsOnCooldown(GameObject guardGameObject) : base("Is On Cooldown")
     {
         _guardGameObject = guardGameObject;
     }
@@ -14,13 +14,13 @@ public class ConditionIsPlayerSpotted : Condition
 
     public override void OnUpdate(float elapsedTime)
     {
-        if (_guardGameObject.GetComponent<GuardController>().isPlayerSpotted())
+        if (_guardGameObject.GetComponent<GuardController>().isOnCooldown())
         {
-            state = NodeState.Success;
+            state = NodeState.Failed;
         }
         else
         {
-            state = NodeState.Failed;
+            state = NodeState.Success;
         }
     }
 
