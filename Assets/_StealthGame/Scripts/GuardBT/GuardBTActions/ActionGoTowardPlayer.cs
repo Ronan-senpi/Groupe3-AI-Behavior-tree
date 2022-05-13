@@ -6,7 +6,7 @@ public class ActionGoTowardPlayer : Action
     [SerializeField] private int _maxRange = 10;
     private GameObject _guardGameObject;
     private float _guardMoveSpeed;
-    [SerializeField] private const float _waitTimeSeconds = 4f;
+    [SerializeField] private const float _waitTimeSeconds = 1f;
     private float _waitCounter;
     public ActionGoTowardPlayer(GameObject guardGameObject, float guardMoveSpeed) : base("Go Toward Player")
     {
