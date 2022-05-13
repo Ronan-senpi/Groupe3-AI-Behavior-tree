@@ -14,6 +14,7 @@ public class HealthController : MonoBehaviour
     public bool CanTakeDamage { get; set; } = true;
     public Rigidbody Rb { get; protected set; }
 
+    public bool IsDead => currentHealthPoints <= 0;
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,7 +25,7 @@ public class HealthController : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-
+        
     }
 
     public virtual void Death()
