@@ -33,7 +33,7 @@ namespace BehaviourTree
             }
         }
 
-        private void ResetTree()
+        public void ResetTree()
         {
             root.Reset();
             AIUpdater.Instance.SetCurrentNode(root);
