@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BehaviourTree
+namespace BehaviourTree.Nodes
 {
     public class ForceFailure : Node
 
@@ -8,21 +8,13 @@ namespace BehaviourTree
         /// <summary>
         /// Returns always Failed when OnUpdate is called
         /// </summary>
-        public ForceFailure(List<Node> childrenNodes) : base(childrenNodes)
-        {
-        }
-
-        public override void OnStart()
+        public ForceFailure(List<Node> childrenNodes) : base("ForceFailure", childrenNodes)
         {
         }
 
         public override NodeState Evaluate()
         {
             return NodeState.Failed;
-        }
-
-        public override void OnEnd()
-        {
         }
     }
 }
