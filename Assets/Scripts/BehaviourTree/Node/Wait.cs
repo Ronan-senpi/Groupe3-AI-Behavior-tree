@@ -5,14 +5,18 @@ using UnityEngine;
 
 namespace BehaviourTree.Nodes
 {
+    /// <summary>
+    /// Stay in Running state for a given time.
+    /// Returns Success when time is over
+    /// </summary>
     public class Wait : Action
     {
         private float currentTimer;
         private float waitTimer;
 
-        public Wait(float waiting) : base("Wait")
+        public Wait(float waitingTime) : base("Wait")
         {
-            waitTimer = waiting;
+            waitTimer = waitingTime;
             OnStart();
         }
 

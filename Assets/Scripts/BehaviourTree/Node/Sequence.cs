@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace BehaviourTree.Nodes
 {
+    /// <summary>
+    /// Sequence of behaviour tree.
+    /// Iterates on nodes in children until every node is in Success state.
+    /// Stop execution if a node return Failed.
+    /// </summary>
     public class Sequence : Control
     {
         public Sequence(List<Node> childrenNodes, string treeId) : base("Sequence", treeId, childrenNodes)

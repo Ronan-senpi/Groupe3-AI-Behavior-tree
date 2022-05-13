@@ -12,6 +12,9 @@ public enum NodeState
 
 namespace BehaviourTree.Nodes
 {
+    /// <summary>
+    /// Base abstract  class for every node of the Behaviour Tree. 
+    /// </summary>
     public abstract class Node
     {
         protected NodeState state = NodeState.NotExecuted;
@@ -20,23 +23,34 @@ namespace BehaviourTree.Nodes
 
         public Node(string name, List<Node> childrenNodes)
         {
-            nodeName = name; 
+            nodeName = name;
             children = childrenNodes;
         }
 
+        /// <summary>
+        /// Function called at the beginning of the execution of the node
+        /// </summary>
         public virtual void OnStart()
         {
             state = NodeState.Running;
         }
 
-        public virtual void OnUpdate(float elapsedTime){}
+        /// <summary>
+        /// Function called at the beginning of the execution of the node
+        /// </summary>
+        /// <param name="elapsedTime"> Time passed between two execution of UpdateAI in AIUpdater</param>
+        public virtual void OnUpdate(float elapsedTime)
+        {
+        }
 
         public virtual NodeState Evaluate()
         {
             return state;
         }
 
-        public virtual void OnEnd(){}
+        public virtual void OnEnd()
+        {
+        }
 
         public virtual void Reset()
         {

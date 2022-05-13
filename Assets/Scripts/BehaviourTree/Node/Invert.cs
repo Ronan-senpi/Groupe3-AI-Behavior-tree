@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace BehaviourTree.Nodes
 {
+    /// <summary>
+    /// This node can only have one node child.
+    /// Returns Failed when child state is Success, or Success when child state is Failed
+    /// </summary>
     public class Invert : Node
     {
         public Invert(Node child) : base("Invert", new List<Node>() { child })

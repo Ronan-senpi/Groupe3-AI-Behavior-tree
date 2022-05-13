@@ -32,8 +32,9 @@ public class AIUpdater : MonoBehaviour
 
     #endregion
 
+    [Tooltip("Time in seconds between each update of the AI")] [SerializeField]
+    private float AI_UPDATE_FREQUENCY = 0.05f;
 
-    public const float AI_UPDATE_FREQUENCY = 0.05f;
     private bool updatingAI = true;
     private Dictionary<string, Node> AINodes = new Dictionary<string, Node>();
     private NodeState previousState;
@@ -80,10 +81,13 @@ public class AIUpdater : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Update the behaviour of the AI with a new Node
+    /// </summary>
+    /// <param name="id">The identifier of the AI to update</param>
+    /// <param name="newNode">This node will replace the current behaviour of the AI</param>
     public void SetCurrentNode(string id, Node newNode)
     {
-        Debug.Log("Update AI " + id +" with node " + newNode.GetName());
         AINodes[id] = newNode;
     }
 }
