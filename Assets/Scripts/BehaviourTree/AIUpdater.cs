@@ -85,7 +85,7 @@ public class AIUpdater : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Si tu lis ca ca pue du cul... " + currentState);
+                    Debug.Log(currentState);
                 }
 
                 previousState = currentState;
