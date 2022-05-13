@@ -249,6 +249,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 458511786, guid: daf0a94cf2dd0b641be686aabcf4169f, type: 3}
+      propertyPath: healthPoints
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6095531833271714642, guid: daf0a94cf2dd0b641be686aabcf4169f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -259,7 +263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6095531833271714647, guid: daf0a94cf2dd0b641be686aabcf4169f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.74
+      value: 1.45
       objectReference: {fileID: 0}
     - target: {fileID: 6095531833271714647, guid: daf0a94cf2dd0b641be686aabcf4169f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -267,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6095531833271714647, guid: daf0a94cf2dd0b641be686aabcf4169f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.86
+      value: -1.05
       objectReference: {fileID: 0}
     - target: {fileID: 6095531833271714647, guid: daf0a94cf2dd0b641be686aabcf4169f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -484,13 +488,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5224249261925980086, guid: e1b87fe3bacd71946b49992389c0bf7f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5314932389532016519, guid: e1b87fe3bacd71946b49992389c0bf7f, type: 3}
       propertyPath: m_Name
       value: SpellHitbox
       objectReference: {fileID: 0}
     - target: {fileID: 5314932389532016519, guid: e1b87fe3bacd71946b49992389c0bf7f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6262221762104017700, guid: e1b87fe3bacd71946b49992389c0bf7f, type: 3}
       propertyPath: m_RootOrder
@@ -553,6 +561,22 @@ PrefabInstance:
       propertyPath: hitboxSpell
       value: 
       objectReference: {fileID: 736559895}
+    - target: {fileID: 4877688467016283108, guid: 5328ce7b2f281f74ca09a7905fa055f0, type: 3}
+      propertyPath: kickDamages
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877688467016283108, guid: 5328ce7b2f281f74ca09a7905fa055f0, type: 3}
+      propertyPath: sowrdDamages
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877688467016283108, guid: 5328ce7b2f281f74ca09a7905fa055f0, type: 3}
+      propertyPath: spellDamages
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877688467016283108, guid: 5328ce7b2f281f74ca09a7905fa055f0, type: 3}
+      propertyPath: spellDuration
+      value: 3.33
+      objectReference: {fileID: 0}
     - target: {fileID: 4877688467016283110, guid: 5328ce7b2f281f74ca09a7905fa055f0, type: 3}
       propertyPath: m_Name
       value: Boss

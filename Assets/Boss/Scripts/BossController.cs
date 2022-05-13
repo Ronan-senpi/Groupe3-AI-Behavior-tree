@@ -63,12 +63,18 @@ public class BossController : LineOfSight
     public float SwordDamages => sowrdDamages * powerRate;
     public Color SwordColor => swordColor;
 
+    #endregion Sword
+
+    #region spell
+
+    
     [Header("Spell")] [SerializeField] [MinMaxSlider(1, 20)]
     private Vector2 spellRange = new Vector2(10f, 20f);
 
     [SerializeField] private float spellDamages = 5f;
     [SerializeField] private HitboxController hitboxSpell;
     [SerializeField] [Range(2f, 10f)] private float spellCooldown = 7f;
+    [SerializeField] [Range(2f, 10f)] private float spellDuration = 7f;
     [SerializeField] private Color spellColor = Color.magenta;
     private bool canCastSpell = true;
 
@@ -77,7 +83,9 @@ public class BossController : LineOfSight
     public float SpellCooldown => spellCooldown;
     public Color SpellColor => spellColor;
 
-    #endregion Sword
+    private Vector3 spellPositionOrigin;
+
+    #endregion spell
 
     #region PowerUp
 
@@ -93,7 +101,9 @@ public class BossController : LineOfSight
         currentHealthPoints = healthPoints;
         // spell hitbox stetup
         hitboxSpell.Damage = SpellDamages;
+        hitboxSpell.Duration = spellDuration;
         hitboxSpell.TargetMask = toHitLayer;
+        spellPositionOrigin = hitboxSpell.gameObject.transform.position;
         // kick hitbox setup;
         hitboxKick.Damage = KickDamages;
         hitboxKick.TargetMask = toHitLayer;
@@ -111,7 +121,7 @@ public class BossController : LineOfSight
             return;
         }
 
-        AttackSword();
+        AttackCastSpell();
     }
 
     void Death()
@@ -165,8 +175,11 @@ public class BossController : LineOfSight
         float distanceTarget = Vector3.Distance(target.position, transform.position);
         if (canCastSpell && (spellRange.x <= distanceTarget && distanceTarget <= spellRange.y))
         {
+            hitboxSpell.gameObject.SetActive(true);
             canCastSpell = false;
             animator.SetTrigger(BossAnimationNames.Spell);
+            hitboxSpell.gameObject.transform.position =
+                new Vector3(target.position.x, 0, target.position.z);
             StartCoroutine(ResetSpellStatus());
         }
     }
@@ -175,6 +188,7 @@ public class BossController : LineOfSight
     {
         yield return new WaitForSeconds(spellCooldown);
         canCastSpell = true;
+        hitboxSpell.gameObject.transform.position = spellPositionOrigin;
     }
 
     void AttackKick()
