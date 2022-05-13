@@ -24,8 +24,4 @@ public class ConditionIsPlayerSpotted : Condition
         }
     }
 
-
-    public override void OnEnd()
-    {
-    }
 }

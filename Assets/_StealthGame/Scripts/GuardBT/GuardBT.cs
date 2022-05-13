@@ -36,7 +36,5 @@ public class GuardBT : Tree
         }
         Gizmos.DrawLine(previousPosition, startPosition);
 
-        // Gizmos.color = Color.red;
-        // Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
     }
 }

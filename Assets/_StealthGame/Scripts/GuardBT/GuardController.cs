@@ -19,7 +19,6 @@ public class GuardController : MonoBehaviour
     int _targetWaypointIndex = 1;
     bool _cooldown = false;
     [SerializeField] private GameObject _canvas;
-    bool _disabled = false;
     
     void Start()
     {

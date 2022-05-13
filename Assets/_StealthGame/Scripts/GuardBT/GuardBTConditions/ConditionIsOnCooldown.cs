@@ -24,8 +24,4 @@ public class ConditionIsOnCooldown : Condition
         }
     }
 
-
-    public override void OnEnd()
-    {
-    }
 }
