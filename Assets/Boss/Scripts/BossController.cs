@@ -43,7 +43,7 @@ public class BossController : LineOfSight
 
     [SerializeField] private float kickDamages = 2.5f;
     [SerializeField] private HitboxKickController hitboxKick;
-
+    public HitboxController HitboxKick => hitboxKick;
     [SerializeField] private Color kickColor = Color.blue;
 
     public Vector2 KickRange => kickRange;

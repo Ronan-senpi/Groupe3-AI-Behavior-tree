@@ -11,11 +11,13 @@ public class BossTree : Tree
     {
         CheckBetween checkSwordDist = new CheckBetween(boss.transform, boss.Target, boss.SwordRange);
         CheckBetween checkKickDist = new CheckBetween(boss.transform, boss.Target, boss.KickRange);
-        AttackSword attackSword = new AttackSword(boss);
+        AttackSword slash = new AttackSword(boss);
+        AttackKick kick = new AttackKick(boss);
         ReachPlayer reachPlayer = new ReachPlayer(boss, boss.Target);
 
-        Sequence attackSequence = new Sequence(new List<Node>() { checkSwordDist, attackSword }, identifier);
-        Selector bossSelector = new Selector(new List<Node>() { attackSequence, reachPlayer }, identifier);
+        Sequence kickSequence = new Sequence(new List<Node>() { checkKickDist, kick }, identifier);
+        Sequence slashSequence = new Sequence(new List<Node>() { checkSwordDist, slash }, identifier);
+        Selector bossSelector = new Selector(new List<Node>() { kickSequence, slashSequence, reachPlayer }, identifier);
 
         return bossSelector;
     }
