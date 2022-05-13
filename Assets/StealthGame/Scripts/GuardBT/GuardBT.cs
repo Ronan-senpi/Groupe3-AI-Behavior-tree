@@ -15,9 +15,9 @@ public class GuardBT : Tree
         ConditionIsPlayerSpotted conditionIsPlayerSpotted = new ConditionIsPlayerSpotted(_guardGameObject);
         ActionGoTowardPlayer goTowardPlayer = new ActionGoTowardPlayer(6f);
         ActionGuardPatrol guardPatrol = new ActionGuardPatrol( _guardGameObject, _pathHolder, _guardMoveSpeed);
-        Sequence sequence = new Sequence(new List<Node> { conditionIsPlayerSpotted, goTowardPlayer });
+        Sequence sequence = new Sequence(new List<Node> { conditionIsPlayerSpotted, goTowardPlayer }, identifier);
 
-        Selector selec = new Selector(new List<Node>{sequence, guardPatrol});
+        Selector selec = new Selector(new List<Node>{sequence, guardPatrol}, identifier);
 
         return selec;
     }

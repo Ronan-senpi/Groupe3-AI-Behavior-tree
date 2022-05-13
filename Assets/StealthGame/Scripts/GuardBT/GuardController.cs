@@ -14,6 +14,8 @@ public class GuardController : MonoBehaviour
     [SerializeField] private float _timeToSpotPlayer = .5f;
     float _playerVisibleTimer;
     bool _playerSpotted;
+
+    int _targetWaypointIndex = 1;
     
     void Start()
     {
@@ -62,6 +64,14 @@ public class GuardController : MonoBehaviour
 
     public bool isPlayerSpotted(){
         return _playerSpotted;
+    }
+
+    public void setTargetWaypointIndex(int targetWaypointIndex){
+        _targetWaypointIndex = targetWaypointIndex;
+    }
+
+    public int getTargetWaypointIndex(){
+        return _targetWaypointIndex;
     }
 
 }

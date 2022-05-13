@@ -14,16 +14,16 @@ public class ConditionIsPlayerSpotted : Condition
 
     public override void OnUpdate(float elapsedTime)
     {
-        Debug.Log("Check");
         if (_guardGameObject.GetComponent<GuardController>().isPlayerSpotted())
         {
+            Debug.Log("Check Success");
             state = NodeState.Success;
         }
         else
         {
+            Debug.Log("Check Failed");
             state = NodeState.Failed;
         }
-        Debug.Log(state);
     }
 
 

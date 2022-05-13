@@ -12,7 +12,7 @@ public class ActionGuardPatrol : Action
     private int _targetWaypointIndex;
     [SerializeField] private float _turnSpeed = 120;
 
-    [SerializeField] private const float _waitTimeSeconds = 0.5f;
+    [SerializeField] private const float _waitTimeSeconds = 0.2f;
     private float _waitCounter;
     private bool _waiting;
 
@@ -29,16 +29,20 @@ public class ActionGuardPatrol : Action
         }
         _guardGameObject.transform.position = _waypoints[0];
         _guardGameObject.transform.LookAt(_waypoints[1]);
-        _targetWaypointIndex = 1;
         
         _waiting = true;
         _waitCounter = 0f;
     }
     public override void OnStart()
     {
+        base.OnStart();
     }
     public override void OnUpdate(float elapsedTime)
     {
+        if(_guardGameObject.GetComponent<GuardController>().isPlayerSpotted())
+            state = NodeState.Success;
+        _targetWaypointIndex = _guardGameObject.GetComponent<GuardController>().getTargetWaypointIndex();
+
         Vector3 targetWaypoint = _waypoints[_targetWaypointIndex];
         Vector3 dirToLookTarget = (targetWaypoint - _guardGameObject.transform.position).normalized;
         float targetAngle = 90-Mathf.Atan2(dirToLookTarget.z, dirToLookTarget.x) * Mathf.Rad2Deg;
@@ -68,7 +72,7 @@ public class ActionGuardPatrol : Action
             return;
         }
 
-        _targetWaypointIndex = (_targetWaypointIndex+1) % _waypoints.Length;
+        _guardGameObject.GetComponent<GuardController>().setTargetWaypointIndex((_targetWaypointIndex+1) % _waypoints.Length);
         _waiting = true;
         _waitCounter = 0f;
         
@@ -77,6 +81,7 @@ public class ActionGuardPatrol : Action
 
     public override void Reset()
     {
+        base.Reset();
     }
 
     public override void OnEnd()
