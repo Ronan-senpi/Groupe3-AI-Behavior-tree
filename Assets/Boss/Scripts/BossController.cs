@@ -43,7 +43,7 @@ public class BossController : LineOfSight
 
     [SerializeField] private float kickDamages = 2.5f;
     [SerializeField] private HitboxKickController hitboxKick;
-
+    public HitboxController HitboxKick => hitboxKick;
     [SerializeField] private Color kickColor = Color.blue;
 
     public Vector2 KickRange => kickRange;
@@ -75,6 +75,7 @@ public class BossController : LineOfSight
 
     [SerializeField] private float spellDamages = 5f;
     [SerializeField] private HitboxController hitboxSpell;
+    public HitboxController HitboxSpell => hitboxSpell;
     [SerializeField] [Range(2f, 10f)] private float spellCooldown = 7f;
     [SerializeField] [Range(2f, 10f)] private float spellDuration = 7f;
     [SerializeField] private Color spellColor = Color.magenta;
@@ -91,13 +92,13 @@ public class BossController : LineOfSight
 
     #region PowerUp
 
-    
     [Header("PowerUp")] [SerializeField] [Range(1, 2)]
     private float powerUpRate = 1.33f;
-    [SerializeField] [Range(0, 1)]
-    private float powerUpThreshold =0.33f;
+
+    [SerializeField] [Range(0, 1)] private float powerUpThreshold = 0.33f;
     [SerializeField] GameObject effect;
     private bool canPowerUp = true;
+
     #endregion PowerUp
 
     private BossTree bt;
