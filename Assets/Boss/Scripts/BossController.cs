@@ -20,13 +20,17 @@ static class AnimationNames
 public class BossController : LineOfSight
 {
     [SerializeField] private Transform target;
+    public Transform Target => target;
     [SerializeField] private Animator animator;
-
+    public Animator Animator => animator;
 
     [Header("Movement")] [SerializeField] private float speed = 10f;
+    public float Speed => speed;
+
+    public bool CanRun { get; set; }
 
     [SerializeField] private float selfSpace = 3f;
-
+    public float SelfSpace => selfSpace;
     [SerializeField] private LayerMask toHitLayer;
 
     #region Kick
@@ -34,7 +38,9 @@ public class BossController : LineOfSight
     [Header("Kick")] [SerializeField] [MinMaxSlider(0.1f, 20)]
     private Vector2 kickRange = new Vector2(0f, 5f);
 
-    [FormerlySerializedAs("distanceKickProjection")] [SerializeField] private float forceKickProjection = 5f;
+    [FormerlySerializedAs("distanceKickProjection")] [SerializeField]
+    private float forceKickProjection = 5f;
+
     [SerializeField] private float kickDamages = 2.5f;
     [SerializeField] private HitboxKickController hitboxKick;
 
@@ -54,6 +60,7 @@ public class BossController : LineOfSight
 
     [SerializeField] private float sowrdDamages = 5f;
     [SerializeField] private HitboxController hitboxSword;
+    public HitboxController HitboxSword => hitboxSword;
     [SerializeField] private Color swordColor = Color.cyan;
     public Vector2 SwordRange => swordRange;
     public float SwordDamages => sowrdDamages * powerRate;
@@ -109,9 +116,12 @@ public class BossController : LineOfSight
 
     private void Update()
     {
-        
+        if (CanRun)
+        {
+            ReachPlayer();
+        }
     }
-    
+
     //Fonction pour le BT
 
     void PowerUp()

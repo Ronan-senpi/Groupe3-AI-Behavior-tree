@@ -5,19 +5,21 @@ using UnityEngine;
 
 public class CheckDistance : Condition
 {
-    public Transform pos;
-    public Transform target;
+    private Transform position;
+    private Transform target;
+    private float distance;
 
-    public CheckDistance(Transform position, Transform targ) : base("Distance")
+    public CheckDistance(Transform position, Transform target, float dist) : base("Distance")
     {
-        pos = position;
-        target = targ;
+        this.position = position;
+        this.target = target;
+        distance = dist;
     }
 
 
     public override void OnUpdate(float elapsedTime)
     {
-        if (Vector3.Distance(target.position, pos.position) < 10)
+        if (Vector3.Distance(target.position, position.position) < 10)
         {
             state = NodeState.Success;
         }
