@@ -26,12 +26,17 @@ namespace BehaviourTree
                 NodeState currentState = root.Evaluate();
                 if (currentState == NodeState.Success)
                 {
-                    root.Reset();
-                    AIUpdater.Instance.SetCurrentNode(root);
+                    ResetTree();
                 }
 
                 yield return wait;
             }
+        }
+
+        private void ResetTree()
+        {
+            root.Reset();
+            AIUpdater.Instance.SetCurrentNode(root);
         }
 
         protected abstract Node SetupTree();
