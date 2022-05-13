@@ -39,7 +39,7 @@ public class ActionGuardPatrol : Action
     }
     public override void OnUpdate(float elapsedTime)
     {
-        if(_guardGameObject.GetComponent<GuardController>().isPlayerSpotted())
+        if(_guardGameObject.GetComponent<GuardController>().isPlayerSpotted() || _guardGameObject.GetComponent<GuardController>().isOnCooldown())
             state = NodeState.Success;
             
         _targetWaypointIndex = _guardGameObject.GetComponent<GuardController>().getTargetWaypointIndex();

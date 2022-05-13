@@ -28,9 +28,6 @@ public class PlayerStealth : MonoBehaviour
 
         float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
         angle = Mathf.LerpAngle(angle, targetAngle, Time.deltaTime * turnSpeed * inputMagnitude);
-        /*transform.eulerAngles = Vector3.up * angle;
-
-        transform.Translate(transform.forward * moveSpeed * Time.deltaTime * smoothInputMagnitude, Space.World);*/
 
         velocity = transform.forward * (moveSpeed * smoothInputMagnitude);
     }
@@ -38,7 +35,6 @@ public class PlayerStealth : MonoBehaviour
     void FixedUpdate() {
         rigidbody.MoveRotation(Quaternion.Euler(Vector3.up * angle));
         rigidbody.MovePosition(rigidbody.position + velocity * Time.deltaTime);
-        // rigidbody.MovePosition(rigidbody.position + transform.TransformDirection(velocity) * Time.fixedDeltaTime);
     }
     private void OnCollisionEnter(Collision collision){
         if (collision.gameObject.layer == LayerMask.NameToLayer("Reward"))

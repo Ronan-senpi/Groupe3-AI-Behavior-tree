@@ -5,7 +5,7 @@ public class ActionGoTowardPlayer : Action
 {
     private GameObject _guardGameObject;
     private float _guardMoveSpeed;
-    [SerializeField] private const float _waitTimeSeconds = 1f;
+    [SerializeField] private const float _waitTimeSeconds = 4f;
     private float _waitCounter;
     public ActionGoTowardPlayer(GameObject guardGameObject, float guardMoveSpeed) : base("Go Toward Player")
     {
@@ -19,7 +19,6 @@ public class ActionGoTowardPlayer : Action
     }
     public override void OnUpdate(float elapsedTime)
     {
-        //_guardGameObject.GetComponent<GuardController>().ChasePlayer();
         _guardGameObject.transform.position = Vector3.MoveTowards(_guardGameObject.transform.position, _guardGameObject.GetComponent<GuardController>().getplayerTransform().position, _guardMoveSpeed * elapsedTime);
         _guardGameObject.transform.LookAt(_guardGameObject.GetComponent<GuardController>().getplayerTransform().position);
         _waitCounter += elapsedTime;
