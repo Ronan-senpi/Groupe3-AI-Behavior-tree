@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 4877688467016283108}
   - component: {fileID: 4877688467016283106}
   - component: {fileID: 4877688467016283107}
+  - component: {fileID: 7633539052472855315}
   m_Layer: 7
   m_Name: Boss
   m_TagString: Untagged
@@ -181,6 +182,21 @@ CapsuleCollider:
   m_Height: 1.5572214
   m_Direction: 1
   m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!114 &7633539052472855315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4877688467016283110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424f97a3d8c38864f80e3ea765a9fa96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treeUpdateFrequency: 0.2
+  identifier: Boss
+  boss: {fileID: 4877688467016283108}
 --- !u!1 &4877688467230883695
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1545806602296978, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4464497929771776, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
       propertyPath: m_RootOrder
