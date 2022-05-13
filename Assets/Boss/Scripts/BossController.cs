@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityExtendedEditor.Attributes;
 using System.Collections;
+using UnityEngine.Serialization;
 
 static class BossAnimationNames
 {
@@ -30,48 +31,76 @@ public class BossController : LineOfSight
 
     [SerializeField] private float selfSpace = 3f;
 
+    [SerializeField] private LayerMask toHitLayer;
+
+    #region Kick
+
     [Header("Kick")] [SerializeField] [MinMaxSlider(0.1f, 20)]
     private Vector2 kickRange = new Vector2(0f, 5f);
 
-    [SerializeField] private float distanceKickProjection = 5f;
+    [FormerlySerializedAs("distanceKickProjection")] [SerializeField] private float forceKickProjection = 5f;
     [SerializeField] private float kickDamages = 2.5f;
+    [SerializeField] private HitboxKickController hitboxKick;
+
     [SerializeField] private Color kickColor = Color.blue;
 
     public Vector2 KickRange => kickRange;
-    public float DistanceKickProjection => distanceKickProjection;
+    public float ForceKickProjection => forceKickProjection * powerRate;
     public float KickDamages => kickDamages * powerRate;
     public Color KickColor => kickColor;
+
+    #endregion Kick
+
+    #region Sword
 
     [Header("Sword")] [SerializeField] [MinMaxSlider(1, 20)]
     private Vector2 swordRange = new Vector2(0f, 5f);
 
     [SerializeField] private float sowrdDamages = 5f;
+    [SerializeField] private HitboxController hitboxSword;
     [SerializeField] private Color swordColor = Color.cyan;
-
     public Vector2 SwordRange => swordRange;
-    public float SowrdDamages => sowrdDamages * powerRate;
+    public float SwordDamages => sowrdDamages * powerRate;
     public Color SwordColor => swordColor;
 
     [Header("Spell")] [SerializeField] [MinMaxSlider(1, 20)]
     private Vector2 spellRange = new Vector2(10f, 20f);
 
     [SerializeField] private float spellDamages = 5f;
-    [SerializeField] private Color spellColor = Color.magenta;
+    [SerializeField] private HitboxController hitboxSpell;
     [SerializeField] [Range(2f, 10f)] private float spellCooldown = 7f;
+    [SerializeField] private Color spellColor = Color.magenta;
     private bool canCastSpell = true;
+
     public Vector2 SpellRange => spellRange;
     public float SpellDamages => spellDamages * powerRate;
     public float SpellCooldown => spellCooldown;
     public Color SpellColor => spellColor;
 
+    #endregion Sword
+
+    #region PowerUp
+
     [Header("PowerUp")] [SerializeField] [Range(1, 2)]
     private float powerUpRate = 1.33f;
+
+    #endregion PowerUp
 
     private float powerRate = 1f;
 
     private void Start()
     {
         currentHealthPoints = healthPoints;
+        // spell hitbox stetup
+        hitboxSpell.Damage = SpellDamages;
+        hitboxSpell.TargetMask = toHitLayer;
+        // kick hitbox setup;
+        hitboxKick.Damage = KickDamages;
+        hitboxKick.TargetMask = toHitLayer;
+        hitboxKick.ForceKickProjection = ForceKickProjection;
+        //sword hitbox setup
+        hitboxSword.Damage = SwordDamages;
+        hitboxSword.TargetMask = toHitLayer;
     }
 
     private void Update()
@@ -82,12 +111,12 @@ public class BossController : LineOfSight
             return;
         }
 
-        Impact(10);
+        AttackSword();
     }
 
     void Death()
     {
-        animator.SetBool(BossAnimationNames.Death, true);
+        animator.SetTrigger(BossAnimationNames.Death);
     }
 
     void Impact(int damages)
@@ -96,7 +125,7 @@ public class BossController : LineOfSight
         if (canTakeDamage && (kickRange.x <= distanceTarget && distanceTarget <= kickRange.y))
         {
             canTakeDamage = false;
-            animator.SetBool(BossAnimationNames.Impact, true);
+            animator.SetTrigger(BossAnimationNames.Impact);
             currentHealthPoints -= damages;
             StartCoroutine(ResetDamageStatus());
         }
@@ -153,6 +182,7 @@ public class BossController : LineOfSight
         float distanceTarget = Vector3.Distance(target.position, transform.position);
         if ((kickRange.x <= distanceTarget && distanceTarget <= kickRange.y))
         {
+            hitboxKick.gameObject.SetActive(true);
             animator.SetTrigger(BossAnimationNames.Kick);
         }
     }
@@ -162,6 +192,7 @@ public class BossController : LineOfSight
         float distanceTarget = Vector3.Distance(target.position, transform.position);
         if ((swordRange.x <= distanceTarget && distanceTarget <= swordRange.y))
         {
+            hitboxSword.gameObject.SetActive(true);
             animator.SetTrigger(BossAnimationNames.Slash);
         }
     }

@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4877688466948786443}
   - component: {fileID: 4877688466948786440}
+  - component: {fileID: 1079899628925910410}
   m_Layer: 0
   m_Name: KickHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4877688466948786443
 Transform:
   m_ObjectHideFlags: 0
@@ -45,6 +46,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.278779, y: 0.66186357, z: 0.85001385}
   m_Center: {x: 0.18908042, y: -0.072436295, z: 0.68287355}
+--- !u!114 &1079899628925910410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4877688466948786442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b88c639de8254b49ba1ff6b252a3a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4877688467016283110
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +84,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4877688467016283110}
-  m_LocalRotation: {x: -0, y: 0.99581814, z: -0, w: 0.09135774}
+  m_LocalRotation: {x: 0, y: 0.9958185, z: 0, w: 0.09135394}
   m_LocalPosition: {x: 0, y: 2, z: 18}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
@@ -102,17 +115,23 @@ MonoBehaviour:
   recoveryTime: 3
   speed: 10
   selfSpace: 3
+  toHitLayer:
+    serializedVersion: 2
+    m_Bits: 64
   kickRange: {x: 1.5, y: 5}
-  distanceKickProjection: 5
+  forceKickProjection: 5
   kickDamages: 2.5
+  hitboxKick: {fileID: 1079899628925910410}
   kickColor: {r: 0.9818833, g: 1, b: 0, a: 1}
   swordRange: {x: 4, y: 8}
   sowrdDamages: 5
+  hitboxSword: {fileID: 1368358459}
   swordColor: {r: 0, g: 0.060156107, b: 1, a: 1}
   spellRange: {x: 8.1, y: 20}
   spellDamages: 5
-  spellColor: {r: 1, g: 0.08880368, b: 0, a: 1}
+  hitboxSpell: {fileID: 0}
   spellCooldown: 7
+  spellColor: {r: 1, g: 0.08880368, b: 0, a: 1}
   powerUpRate: 1.33
 --- !u!54 &4877688467016283106
 Rigidbody:
@@ -154,13 +173,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4877688467230883692}
   - component: {fileID: 4877688467230883693}
+  - component: {fileID: 1368358459}
   m_Layer: 0
   m_Name: SwordHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4877688467230883692
 Transform:
   m_ObjectHideFlags: 0
@@ -189,6 +209,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.93925494, y: 0.87039775, z: 1.2098303}
   m_Center: {x: -0.22738771, y: 0.2806334, z: 0.7032638}
+--- !u!114 &1368358459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4877688467230883695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf20f9a306d8e44da4c98102df0634d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4877688466750432717
 PrefabInstance:
   m_ObjectHideFlags: 0
